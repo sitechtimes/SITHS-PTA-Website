@@ -7,12 +7,15 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@nuxt/content": "^3.0.0",
+    "@nuxtjs/sanity": "^1.13.3",
     "gsap": "^3.12.5",
     "nuxt": "^3.13.0",
+    "prettier": "^3.5.3",
     "vue": "latest",
     "vue-router": "latest"
   },
