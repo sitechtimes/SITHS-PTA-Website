@@ -8,7 +8,7 @@ export default defineConfig({
   title: 'PTA',
 
   projectId: 'o006ti7s',
-  dataset: 'production',
+  dataset: 'pta',
 
   plugins: [structureTool(), visionTool()],
 
