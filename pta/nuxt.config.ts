@@ -1,15 +1,22 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: [
-    '@nuxt/content'
-  ],
-  css: ['~/assets/css/main.css'],
+  modules: ["@nuxt/content", "@nuxtjs/sanity"],
+
+  sanity: {
+    projectId: "o006ti7s",
+    dataset: "pta",
+    useCdn: true,
+  },
+
+  css: ["~/assets/css/main.css"],
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
-})
+
+  compatibilityDate: "2025-05-03",
+});
