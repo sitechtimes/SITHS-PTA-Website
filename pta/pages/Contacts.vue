@@ -54,15 +54,12 @@
 
 <script setup>
 import gsap from "gsap";
-import { usePtaMemberStore } from "~/stores/websiteData";
 
 const buttonType = ref("join");
 function buttonClick(event) {
   buttonType.value = event.target.id;
 }
-
-const { ptaMembers } = usePtaMemberStore();
-
+const { ptaMembers } = useWebsiteData()
 onMounted(() => {
   var tl = gsap.timeline();
   tl.from("#heading", { opacity: 0, y: 70, duration: 0.5 })

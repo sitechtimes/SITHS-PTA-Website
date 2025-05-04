@@ -1,10 +1,8 @@
-export function usePtaMemberStore() {
+export function useWebsiteData() {
   const fetchLoading = ref(false);
   const ptaMembers = ref<PtaMember[]>([]);
 
   async function fetchPtaMembers() {
-    if (ptaMembers.value.length > 0 || fetchLoading.value) return;
-
     fetchLoading.value = true;
     const query = `*[_type == "ptaMember"]{
       _id,
@@ -18,7 +16,6 @@ export function usePtaMemberStore() {
 
     try {
       const { data, error } = await useSanityQuery<PtaMember[]>(query);
-
       if (error.value) {
         console.error("Error fetching PTA members:", error.value);
         ptaMembers.value = [];
@@ -32,12 +29,10 @@ export function usePtaMemberStore() {
       fetchLoading.value = false;
     }
   }
-
   onMounted(async () => {
     await nextTick();
     await fetchPtaMembers();
   });
-
   return {
     ptaMembers,
     fetchLoading,
