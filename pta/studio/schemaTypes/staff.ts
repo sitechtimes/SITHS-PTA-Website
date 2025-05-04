@@ -9,16 +9,19 @@ export default defineType({
       name: 'name',
       title: 'Name',
       type: 'string',
+      validation: rule => rule.required(),
     },
     {
       name: 'role',
       title: 'Role',
       type: 'string',
+      validation: rule => rule.required(),
     },
     {
       name: 'email',
       title: 'Email',
       type: 'string',
+      validation: rule => rule.required(),
     },
     {
       name: 'phone',
@@ -44,6 +47,7 @@ export default defineType({
         ],
         layout: 'dropdown',
       },
+      validation: rule => rule.required(),
     },
   ],
 })

@@ -40,13 +40,13 @@
         v-if="buttonType === 'staff'"
         class="bg-white rounded-3xl w-11/12 md:w-3/4 xl:w-7/12 pt-4 md:p-12"
       >
-        <Staff :pta-members="ptaMembers"></Staff>
+        <Staff :pta-members="ptaMembers.filter(member => member.memberType === 'staff')" />
       </div>
       <div
         v-if="buttonType === 'slt'"
         class="bg-white rounded-3xl w-11/12 md:w-3/4 xl:w-7/12 pt-4 md:p-12"
       >
-        <SLT></SLT>
+        <Staff :pta-members="ptaMembers.filter(member => member.memberType === 'slt')" />
       </div>
     </div>
   </div>

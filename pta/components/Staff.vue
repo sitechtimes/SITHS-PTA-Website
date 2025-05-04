@@ -7,7 +7,7 @@
       class="content-center w-1/2 2xl:w-1/3 my-4 flex items-center text-center text-wrap flex-col px-1"
     >
       <img
-        :src="member.profilePhotoUrl"
+        :src="member.profilePhotoUrl || '/pfps/default-profile.webp'"
         :alt="member.name"
         class="rounded-full w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 object-cover"
       />
