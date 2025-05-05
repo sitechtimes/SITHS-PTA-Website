@@ -18,3 +18,13 @@ export interface PtaMember extends SanityDocument {
   };
   memberType?: "staff" | "slt";
 }
+
+export interface GalleryImage extends SanityDocument {
+  image?: Image & {
+    asset: ImageAsset;
+    hotspot?: ImageHotspot;
+    crop?: ImageCrop;
+  };
+  alt?: string;
+  order?: number;
+}
