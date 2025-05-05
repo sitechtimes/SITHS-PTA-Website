@@ -19,5 +19,5 @@
   </div>
 </template>
 <script setup>
-const { galleryImages } = useGallery()
+const { galleryImages } = useWebsiteData()
 </script>
