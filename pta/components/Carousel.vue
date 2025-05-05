@@ -19,6 +19,5 @@
   </div>
 </template>
 <script setup>
-import { useGallery } from '~/composables/useGallery'
 const { galleryImages } = useGallery()
 </script>
