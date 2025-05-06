@@ -2,15 +2,15 @@
     <Landing/>
     <div class="mx-10">
         <MiddleSection
-          :about-us="aboutUsContent"
-          :activities-content="activitiesContent"
+          :aboutUs="aboutUsContent"
+          :activitiesContent="activitiesContent"
         />
     </div>
 </template>
 
 <script setup>
-import { useWebsiteData } from "@/composables/websiteData";
-const { aboutUsContent, activitiesContent } = useWebsiteData();
+import { fetchTextData } from "@/composables/fetchText";
+const { aboutUsContent, activitiesContent } = fetchTextData();
 </script>
 
 <style scoped></style>

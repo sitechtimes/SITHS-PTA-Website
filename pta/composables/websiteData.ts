@@ -3,8 +3,6 @@ import type { BlockContent } from '@/utils/types';
 export function useWebsiteData() {
   const fetchLoading = ref(false);
   const ptaMembers = ref<PtaMember[]>([]);
-  const aboutUsContent = ref<BlockContent[]>([])
-  const activitiesContent = ref<BlockContent[]>([])
 
   async function fetchPtaMembers() {
     fetchLoading.value = true;
@@ -34,39 +32,14 @@ export function useWebsiteData() {
     }
   }
 
-  async function fetchHomePageContent() {
-    const query = `*[_type == "homePage"][0]{
-      aboutUs,
-      activitiesContent
-    }`;
-    try {
-      const { data, error } = await useSanityQuery<HomePageData>(query);
-      if (error.value) {
-        console.error("Error fetching Home Page content:", error.value);
-        aboutUsContent.value = [];
-        activitiesContent.value = [];
-      } else if (data.value) {
-        aboutUsContent.value = data.value.aboutUs || [];
-        activitiesContent.value = data.value.activitiesContent || [];
-      }
-    } catch (error) {
-      console.log(error);
-      aboutUsContent.value = [];
-      activitiesContent.value = [];
-    }
-  }
-
   onMounted(async () => {
     await nextTick();
     await fetchPtaMembers();
-    await fetchHomePageContent();
   });
+
   return {
     ptaMembers,
     fetchLoading,
     fetchPtaMembers,
-    aboutUsContent,
-    activitiesContent,
-    fetchHomePageContent,
   };
 }
