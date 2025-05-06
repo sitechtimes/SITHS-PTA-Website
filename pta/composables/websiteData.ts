@@ -1,9 +1,9 @@
 export function useWebsiteData() {
   const fetchLoading = ref(false);
   const ptaMembers = ref<PtaMember[]>([]);
+  const galleryImages = ref<GalleryImage[]>([]);
 
   async function fetchPtaMembers() {
-    fetchLoading.value = true;
     const query = `*[_type == "ptaMember"]{
       _id,
       name,
@@ -23,19 +23,51 @@ export function useWebsiteData() {
         ptaMembers.value = data.value;
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error during PTA members fetch:", error);
       ptaMembers.value = [];
+    }
+  }
+
+  async function fetchGalleryImages() {
+    const query = `*[_type == "galleryImage"] | order(order asc) {
+      "src": image.asset->url,
+      alt
+    }`;
+
+    try {
+      const { data, error } = await useSanityQuery<GalleryImage[]>(query);
+      if (error?.value) {
+        console.error("Error fetching gallery images:", error.value);
+        galleryImages.value = [];
+      } else if (data?.value) {
+        galleryImages.value = data.value;
+      }
+    } catch (error) {
+      console.error("Error during gallery images fetch:", error);
+      galleryImages.value = [];
+    }
+  }
+
+  onMounted(async () => {
+    fetchLoading.value = true;
+    await nextTick();
+    try {
+      await Promise.all([
+        fetchPtaMembers(),
+        fetchGalleryImages()
+      ]);
+    } catch (error) {
+        console.error("Error fetching website data:", error);
     } finally {
       fetchLoading.value = false;
     }
-  }
-  onMounted(async () => {
-    await nextTick();
-    await fetchPtaMembers();
   });
+
   return {
     ptaMembers,
+    galleryImages,
     fetchLoading,
     fetchPtaMembers,
+    fetchGalleryImages,
   };
 }
