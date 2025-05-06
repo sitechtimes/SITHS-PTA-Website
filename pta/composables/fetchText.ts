@@ -27,10 +27,7 @@ export function fetchTextData() {
         }
     }
 
-    onMounted(async () => {
-        await nextTick();
-        await fetchHomePageContent();
-    });
+    fetchHomePageContent();
 
     return {
         fetchLoading,

@@ -32,10 +32,8 @@ export function useWebsiteData() {
     }
   }
 
-  onMounted(async () => {
-    await nextTick();
-    await fetchPtaMembers();
-  });
+  fetchPtaMembers();
+
 
   return {
     ptaMembers,
