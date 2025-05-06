@@ -1,7 +1,7 @@
 import staff from './staff'
-import homePage from './homePage'
+import pageContent from './pageContent'
 
 export const schemaTypes = [
     staff,
-    homePage,
+    pageContent,
 ]
