@@ -1,8 +1,11 @@
 import staff from './staff'
-import pageContent from './pageContent'
+import homePageContent from './homePageContent'
 import gallery from './gallery'
+import donationPageContent from './donationPageContent'
+
 export const schemaTypes = [
     staff,
-    pageContent,
+    homePageContent,
+    donationPageContent,
     gallery,
 ]
