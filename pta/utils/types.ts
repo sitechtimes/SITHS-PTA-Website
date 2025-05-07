@@ -35,3 +35,13 @@ export interface HomePageData {
   aboutUs?: BlockContent[];
   activitiesContent?: BlockContent[];
 }
+
+export interface GalleryImage extends SanityDocument {
+  image?: Image & {
+    asset: ImageAsset;
+    hotspot?: ImageHotspot;
+    crop?: ImageCrop;
+  };
+  alt?: string;
+  order?: number;
+}
