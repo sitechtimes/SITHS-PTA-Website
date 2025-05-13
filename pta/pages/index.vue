@@ -5,6 +5,7 @@
           :aboutUs="aboutUsContent"
           :activitiesContent="activitiesContent"
         />
+        <Resources/>
     </div>
 </template>
 
