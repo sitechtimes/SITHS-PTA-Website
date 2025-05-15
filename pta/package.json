@@ -13,8 +13,6 @@
   "dependencies": {
     "@nuxt/content": "^3.0.0",
     "@nuxtjs/sanity": "^1.13.3",
-    "better-sqlite3": "^11.10.0",
-    "googleapis": "^148.0.0",
     "gsap": "^3.12.5",
     "nuxt": "^3.13.0",
     "prettier": "^3.5.3",
