@@ -4,7 +4,8 @@ export function useWebsiteData() {
   const fetchLoading = ref(false);
   const ptaMembers = ref<PtaMember[]>([]);
   const galleryImages = ref<GalleryImage[]>([]);
-
+  const resources = ref<Resource[]>([]);
+  
   async function fetchPtaMembers() {
     const query = `*[_type == "ptaMember"]{
       _id,
@@ -50,20 +51,32 @@ export function useWebsiteData() {
     }
   }
 
-  onMounted(async () => {
-    fetchLoading.value = true;
-    await nextTick();
+  async function fetchResources() {
+    const query = `*[_type == "resource"] | order(order asc) {
+      _id,
+      name,
+      description,
+      link,
+      "imageUrl": image.asset->url,
+      order
+    }`; 
+
     try {
-      await Promise.all([
-        fetchPtaMembers(),
-        fetchGalleryImages()
-      ]);
+      const { data, error } = await useSanityQuery<Resource[]>(query);
+      if (error?.value) {
+        console.error("Error fetching resources:", error.value);
+        resources.value = [];
+      } else if (data?.value) {
+        resources.value = data.value;
+      }
     } catch (error) {
-        console.error("Error fetching website data:", error);
-    } finally {
-      fetchLoading.value = false;
+      console.error("Error during resources fetch:", error);
+      resources.value = [];
     }
-  });
+  }
+  fetchPtaMembers(),
+  fetchGalleryImages(),
+  fetchResources()
 
   return {
     ptaMembers,
@@ -71,5 +84,7 @@ export function useWebsiteData() {
     fetchLoading,
     fetchPtaMembers,
     fetchGalleryImages,
+    fetchResources,
+    resources,
   };
 }
