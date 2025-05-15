@@ -12,12 +12,23 @@
         :alt="image.alt"
       />
       <div class="absolute left-5 right-5 top-1/2 flex justify-between">
-        <a :href="'#slide' + (index === 0 ? galleryImages.length : index)" class="btn btn-circle">❮</a>
-        <a :href="'#slide' + ((index + 1) % galleryImages.length + 1)" class="btn btn-circle">❯</a>
+        <a :href="'#slide' + (index === 0 ? galleryImages.length : index)"  @click="preventScroll" class="btn btn-circle">❮</a>
+        <a :href="'#slide' + ((index + 1) % galleryImages.length + 1)"  @click="preventScroll" class="btn btn-circle">❯</a>
       </div>
     </div>
   </div>
 </template>
 <script setup>
 const { galleryImages } = useWebsiteData()
+const preventScroll = (event) => {
+  event.preventDefault() //stops the carousel from working
+  const button = event.currentTarget
+  const carouselElement = button.parentElement.parentElement.parentElement
+  const href = button.getAttribute('href')
+  const target = carouselElement.querySelector(href)
+  if (target) {
+    const left = target.offsetLeft //amount to scroll
+    carouselElement.scrollTo({ left: left, behavior: 'smooth' }) //scroll
+  }
+}
 </script>
