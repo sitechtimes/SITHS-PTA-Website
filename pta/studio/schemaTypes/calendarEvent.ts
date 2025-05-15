@@ -23,18 +23,6 @@ export default defineType({
       type: 'datetime',
       validation: Rule => Rule.required(),
     },
-    {
-      name: 'location',
-      title: 'Location',
-      type: 'string',
-    },
-    {
-      name: 'image',
-      title: 'Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-    },
+
   ],
 })
