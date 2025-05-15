@@ -1,3 +1,5 @@
+import type { BlockContent } from '@/utils/types';
+
 export function useWebsiteData() {
   const fetchLoading = ref(false);
   const ptaMembers = ref<PtaMember[]>([]);
