@@ -2,7 +2,7 @@
   <div class="min-h-screen py-8 px-4">
     <h1 class="text-5xl font-bold text-center mb-10 tracking-wide text-[#4b3a23]">EVENTS</h1>
     <div class="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
-      <div class="flex-1">
+      <div class="flex-1 lg:w-1/2 w-full">
         <h2 class="text-2xl font-bold mb-8 text-[#4b3a23] tracking-wide">UPCOMING EVENTS</h2>
         <ul v-if="events.length">
           <li
@@ -23,7 +23,7 @@
         </ul>
         <div v-else class="text-lg text-gray-500 mt-8">No events found.</div>
       </div>
-      <div class="w-full lg:w-[430px] xl:w-[540px] flex justify-center items-start">
+      <div class="flex-1 lg:w-1/2 w-full flex justify-center items-start">
         <iframe
           src="https://calendar.google.com/calendar/embed?src=6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764%40group.calendar.google.com&ctz=America%2FNew_York"
           style="border: 0"
