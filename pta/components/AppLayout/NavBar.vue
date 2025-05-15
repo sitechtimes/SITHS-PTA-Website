@@ -1,5 +1,11 @@
 <template>
-    <header id="navbar" class="grid grid-cols-5 z-80 h-fit w-full justify-end">
+<header
+  :class="[
+    'grid grid-cols-5 z-100 w-full justify-end h-fit pb-5 fixed top-0 transition-colors duration-500',
+    scrolled ? 'bg-gradient-to-b from-[#ffb393] via-[#ffdcbc] to-screen' : 'bg-transparent'
+  ]"
+  id="navbar"
+>
         <div id="logoContainer" class="col-span-2">
             <NuxtLink to="/">
                 <img class="ml-2 mt-1 sm:mt-2 sm:ml-6 scale-75" id="ptaLogo" src="/public/navbarIcons/pta-logo.png">
@@ -40,8 +46,23 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
 
+const scrolled = ref(false);
+
+const handleScroll = () => {
+  scrolled.value = window.scrollY > window.innerHeight/2; 
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
+
 
 <style scoped>
 
