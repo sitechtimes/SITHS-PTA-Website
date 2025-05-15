@@ -15,7 +15,6 @@ export default defineType({
       name: 'role',
       title: 'Role',
       type: 'string',
-      validation: rule => rule.required(),
     },
     {
       name: 'email',
