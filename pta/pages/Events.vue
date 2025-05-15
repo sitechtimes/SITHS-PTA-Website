@@ -8,15 +8,16 @@
           <li
             v-for="event in events"
             :key="event.id"
-            class="bg-white rounded-xl mb-6 px-8 py-6 flex items-center justify-between shadow transition hover:shadow-lg text-lg"
+            class="bg-white rounded-xl mb-6 px-8 py-6 flex items-center justify-between shadow transition hover:shadow-lg text-lg cursor-pointer"
+            @click="openPopup(event)"
           >
             <div class="font-semibold">{{ event.summary }}</div>
             <div class="ml-8 text-right font-medium text-[#4b3a23]">
-              <span v-if="event.start?.dateTime">
-                {{ new Date(event.start.dateTime).toLocaleDateString() }}
+              <span v-if="event.end?.dateTime">
+                {{ new Date(event.end.dateTime).toLocaleDateString() }}
               </span>
-              <span v-else-if="event.start?.date">
-                {{ new Date(event.start.date).toLocaleDateString() }}
+              <span v-else-if="event.end?.date">
+                {{ new Date(event.end.date).toLocaleDateString() }}
               </span>
             </div>
           </li>
@@ -35,14 +36,33 @@
         ></iframe>
       </div>
     </div>
+    <Popup v-if="showPopup" @close="showPopup = false">
+      <h2 class="text-xl font-bold mb-2">{{ selectedEvent?.summary }}</h2>
+      <p class="mb-4 text-gray-700 whitespace-pre-line">{{ selectedEvent?.description || 'No description available.' }}</p>
+      <div v-if="selectedEvent?.location" class="mb-2 text-sm text-gray-500">Location: {{ selectedEvent.location }}</div>
+      <div v-if="selectedEvent?.start?.dateTime" class="mb-2 text-sm text-gray-500">
+        Start: {{ new Date(selectedEvent.start.dateTime).toLocaleString() }}
+      </div>
+      <div v-if="selectedEvent?.end?.dateTime" class="mb-2 text-sm text-gray-500">
+        End: {{ new Date(selectedEvent.end.dateTime).toLocaleString() }}
+      </div>
+    </Popup>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import { gsap } from 'gsap';
+import Popup from '../components/Popup.vue';
 
 const events = ref([]);
+const showPopup = ref(false);
+const selectedEvent = ref(null);
+
+function openPopup(event) {
+  selectedEvent.value = event;
+  showPopup.value = true;
+}
 
 onMounted(async () => {
   const url = 'https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU';
