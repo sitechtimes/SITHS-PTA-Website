@@ -19,6 +19,29 @@ export interface PtaMember extends SanityDocument {
   memberType?: "staff" | "slt";
 }
 
+export interface BlockContent {
+  _key: string
+  _type: 'block'
+  children: Array<{
+    _key: string
+    _type: 'span'
+    marks: string[]
+    text: string
+  }>
+  markDefs: any[]
+  style: string
+}
+
+export interface HomePageData {
+  aboutUs?: BlockContent[];
+  activitiesContent?: BlockContent[];
+}
+
+export interface DonationPageData {
+  bakeSales?: BlockContent[];
+  monetaryDonations?: BlockContent[];
+};
+
 export interface GalleryImage extends SanityDocument {
   image?: Image & {
     asset: ImageAsset;
