@@ -21,7 +21,6 @@
 
 <script setup>
 const { resources } = useWebsiteData();
-console.log(useWebsiteData());
 </script>
 
 <style scoped></style>
