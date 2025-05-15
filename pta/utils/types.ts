@@ -28,3 +28,25 @@ export interface GalleryImage extends SanityDocument {
   alt?: string;
   order?: number;
 }
+
+export interface GalleryImage extends SanityDocument {
+  image?: Image & {
+    asset: ImageAsset;
+    hotspot?: ImageHotspot;
+    crop?: ImageCrop;
+  };
+  alt?: string;
+  order?: number;
+}
+
+export interface Resource extends SanityDocument {
+  name?: string;
+  description?: string;
+  link?: string;
+  image?: Image & {
+    asset: ImageAsset;
+    hotspot?: ImageHotspot;
+    crop?: ImageCrop;
+  };
+  order?: number;
+}
