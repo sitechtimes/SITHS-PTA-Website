@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxt/content": "^3.0.0",
     "@nuxtjs/sanity": "^1.13.3",
+    "@portabletext/vue": "^1.0.12",
     "gsap": "^3.12.5",
     "nuxt": "^3.13.0",
     "prettier": "^3.5.3",
