@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-const { galleryImages } = useWebsiteData();
+const { galleryImages } = await useWebsiteData();
 const currentSlideIndex = ref(0);
 const carouselRef = ref(null);
 

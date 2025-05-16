@@ -43,17 +43,26 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
 const show = ref(false);
+const scrolled = ref(false);
 
 const closeMenu = () => {
   setTimeout(() => {
     show.value = false;
-  }, 300); //delay for UX
+  }, 300);
 };
-</script>
 
+const handleScroll = () => {
+  scrolled.value = window.scrollY > window.innerHeight / 2;
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
+</script>
 
 
 <style scoped>

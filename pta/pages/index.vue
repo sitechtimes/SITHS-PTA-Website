@@ -10,8 +10,6 @@
 </template>
 
 <script setup>
-import { fetchTextData } from "@/composables/fetchText";
-const { aboutUsContent, activitiesContent } = fetchTextData();
+const { aboutUsContent, activitiesContent } = await fetchTextData();
 </script>
-
 <style scoped></style>
