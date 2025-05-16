@@ -1,4 +1,3 @@
-// filepath: c:\Users\oleg2\Downloads\PTA-Sanity-Website\pta\studio\schemaTypes\resource.ts
 import {defineType} from 'sanity'
 
 export default defineType({
