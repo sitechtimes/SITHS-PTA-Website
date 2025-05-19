@@ -1,11 +1,10 @@
-import type { BlockContent } from '@/utils/types';
-
 export function useWebsiteData() {
   const fetchLoading = ref(false);
   const ptaMembers = ref<PtaMember[]>([]);
   const galleryImages = ref<GalleryImage[]>([]);
   const resources = ref<Resource[]>([]);
-  
+  const websiteInformation = ref<WebsiteInformation[]>([]);
+
   async function fetchPtaMembers() {
     const query = `*[_type == "ptaMember"]{
       _id,
@@ -74,17 +73,38 @@ export function useWebsiteData() {
       resources.value = [];
     }
   }
-  fetchPtaMembers(),
-  fetchGalleryImages(),
+
+  async function fetchWebsiteInformation() {
+    const query = `*[_type == "websiteInformation"]{
+      _id,
+      title,
+      description,
+      link
+    }`;
+    try {
+      const { data, error } = await useSanityQuery<WebsiteInformation[]>(query);
+      if (error?.value) {
+        console.error("Error fetching website information:", error.value);
+        return [];
+      } else if (data?.value) {
+        websiteInformation.value = data.value;
+      }
+    } catch (error) {
+      console.error("Error during website information fetch:", error);
+      return [];
+    }
+  }
+
+  fetchPtaMembers()
+  fetchGalleryImages()
   fetchResources()
+  fetchWebsiteInformation()
 
   return {
     ptaMembers,
     galleryImages,
     fetchLoading,
-    fetchPtaMembers,
-    fetchGalleryImages,
-    fetchResources,
     resources,
+    websiteInformation
   };
 }

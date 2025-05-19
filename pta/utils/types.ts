@@ -73,3 +73,10 @@ export interface Resource extends SanityDocument {
   };
   order?: number;
 }
+
+export interface WebsiteInformation extends SanityDocument {
+  _id: string;
+  title: string;
+  description: string;
+  link: string;
+}

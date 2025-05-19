@@ -22,9 +22,9 @@ export default defineType({
         title: 'Website Link',
         type: 'url',
         validation: (rule) =>
-            rule.required().uri({
-            scheme: ['http', 'https'],
-            }),
+          rule.required().uri({
+          scheme: ['http', 'https'],
+        }),
     },
   ]
 })
