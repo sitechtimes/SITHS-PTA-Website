@@ -1,6 +1,6 @@
 import type { BlockContent } from '@/utils/types';
 
-export function useWebsiteData() {
+export async function useWebsiteData() {
   const fetchLoading = ref(false);
   const ptaMembers = ref<PtaMember[]>([]);
   const galleryImages = ref<GalleryImage[]>([]);

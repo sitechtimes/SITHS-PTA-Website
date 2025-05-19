@@ -1,6 +1,6 @@
 import type { BlockContent } from '@/utils/types';
 
-export function fetchTextData() {
+export async function fetchTextData() {
     const fetchLoading = ref(false);
     const aboutUsContent = ref<BlockContent[]>([]);
     const activitiesContent = ref<BlockContent[]>([]);

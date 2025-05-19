@@ -59,7 +59,7 @@ const buttonType = ref("join");
 function buttonClick(event) {
   buttonType.value = event.target.id;
 }
-const { ptaMembers } = useWebsiteData()
+const { ptaMembers } = await useWebsiteData()
 onMounted(() => {
   var tl = gsap.timeline();
   tl.from("#heading", { opacity: 0, y: 70, duration: 0.5 })
