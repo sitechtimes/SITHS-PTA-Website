@@ -4,7 +4,7 @@
 
 
 <script setup>
-const { bakeSaleContent, monetaryDonationContent } = fetchTextData();
+const { bakeSaleContent, monetaryDonationContent } = await fetchTextData();
 </script>
 
 <style scoped></style>

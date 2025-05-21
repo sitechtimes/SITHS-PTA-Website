@@ -6,5 +6,4 @@
   </div>
 </template>
 <script setup>
-useWebsiteData();
 </script>

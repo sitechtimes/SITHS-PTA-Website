@@ -46,8 +46,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
-
 const scrolled = ref(false);
 
 const handleScroll = () => {

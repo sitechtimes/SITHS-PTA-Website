@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-const { resources } = useWebsiteData();
+const { resources } = await useWebsiteData();
 </script>
 
 <style scoped></style>
