@@ -6,6 +6,7 @@ export async function fetchTextData() {
     const activitiesContent = ref<BlockContent[]>([]);
     const bakeSaleContent = ref<BlockContent[]>([]);
     const monetaryDonationContent = ref<BlockContent[]>([]);
+    const joinUsContent = ref<BlockContent[]>([]);
 
     async function fetchHomePageContent() {
         const query = `*[_type == "homePageContent"][0]{
@@ -50,17 +51,39 @@ export async function fetchTextData() {
             monetaryDonationContent.value = [];
         }
     }
+    
+    async function fetchJoinUsContent() {
+        const query = `*[_type == "joinUsPageContent"][0]{
+            joinUs
+        }`;
+        try {
+            const { data, error } = await useSanityQuery<JoinUsData>(query);
+            if (error.value) {
+                console.error("Error fetching Join Us content:", error.value);
+                joinUsContent.value = []; 
+            } else if (data.value) {
+                joinUsContent.value = data.value.joinUs || [];
+                console.log(joinUsContent.value)
+            }
+        } catch (error) {
+            console.log(error);
+            joinUsContent.value = [];
+        }
+    }
 
+    fetchJoinUsContent();
     fetchHomePageContent();
     fetchDonationPageContent();
-
+        
     return {
         fetchLoading,
         aboutUsContent,
         activitiesContent,
         bakeSaleContent,
         monetaryDonationContent,
+        joinUsContent,
         fetchHomePageContent,
         fetchDonationPageContent,
+        fetchJoinUsContent,
     };
 }
