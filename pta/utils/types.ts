@@ -79,4 +79,9 @@ export interface WebsiteInformation extends SanityDocument {
   title: string;
   description: string;
   link: string;
+  image?: Image & {
+    asset: ImageAsset;
+    hotspot?: ImageHotspot;
+    crop?: ImageCrop;
+  };
 }

@@ -1,4 +1,4 @@
-export function useWebsiteData() {
+export async function useWebsiteData() {
   const fetchLoading = ref(false);
   const ptaMembers = ref<PtaMember[]>([]);
   const galleryImages = ref<GalleryImage[]>([]);
@@ -79,8 +79,10 @@ export function useWebsiteData() {
       _id,
       title,
       description,
+      "imageUrl": image.asset->url,
       link
     }`;
+    console.log
     try {
       const { data, error } = await useSanityQuery<WebsiteInformation[]>(query);
       if (error?.value) {
@@ -88,6 +90,7 @@ export function useWebsiteData() {
         return [];
       } else if (data?.value) {
         websiteInformation.value = data.value;
+        console.log(data.value)
       }
     } catch (error) {
       console.error("Error during website information fetch:", error);

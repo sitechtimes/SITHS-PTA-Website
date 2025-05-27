@@ -6,25 +6,34 @@ export default defineType({
   type: 'document',
   fields: [
     {
-        name: 'title',
-        title: 'Website Title',
-        type: 'string',
-        validation: (rule) => rule.required(),
+      name: 'title',
+      title: 'Website Title',
+      type: 'string',
+      validation: (rule) => rule.required(),
     },
     {
-        name: 'description',
-        title: 'Website Description',
-        type: 'text',
-        validation: (rule) => rule.required(),
-        },
+      name: 'description',
+      title: 'Website Description',
+      type: 'text',
+      validation: (rule) => rule.required(),
+    },
     {
-        name: 'link',
-        title: 'Website Link',
-        type: 'url',
-        validation: (rule) =>
-          rule.required().uri({
-          scheme: ['http', 'https'],
-        }),
+      name: 'link',
+      title: 'Website Link',
+      type: 'url',
+      validation: (rule) =>
+        rule.required().uri({
+        scheme: ['http', 'https'],
+      }),
+    },
+    {
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      validation: (rule) => rule.required(),
     },
   ]
 })

@@ -13,8 +13,8 @@
       </div>
       <div id="secondSection" class="flex-1 w-full lg:w-auto mx-4 mb-8 lg:mb-0">
         <div v-for="info in websiteInformation" id="email" class="flex my-4">
-          <img src="/icons/envelope.svg" alt="Email" class="w-6">
-          <p class="ml-3">{{ info.title }}</p>
+            <img :src="info.imageUrl" :alt="info.title" class="w-8">
+          <a :href="info.link" class="ml-3">{{ info.title }}</a>
         </div>
       </div>
       <div id="thirdSection" class="flex-1 w-full lg:w-auto mx-4">
@@ -30,6 +30,7 @@
 
 <script setup>
 const { websiteInformation } = await useWebsiteData()
+console.log(websiteInformation.value)
 </script>
 
 <style scoped>
