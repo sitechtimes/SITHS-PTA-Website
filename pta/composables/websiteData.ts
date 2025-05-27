@@ -90,7 +90,6 @@ export async function useWebsiteData() {
         return [];
       } else if (data?.value) {
         websiteInformation.value = data.value;
-        console.log(data.value)
       }
     } catch (error) {
       console.error("Error during website information fetch:", error);
