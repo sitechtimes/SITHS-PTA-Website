@@ -9,22 +9,17 @@ export default defineType({
       name: 'title',
       title: 'Website Title',
       type: 'string',
-      validation: (rule) => rule.required(),
     },
     {
       name: 'description',
       title: 'Website Description',
       type: 'text',
-      validation: (rule) => rule.required(),
     },
     {
       name: 'link',
       title: 'Website Link',
       type: 'url',
-      validation: (rule) =>
-        rule.required().uri({
-        scheme: ['http', 'https'],
-      }),
+      validation: (rule) => rule.required()
     },
     {
       name: 'image',
