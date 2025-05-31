@@ -16,7 +16,7 @@
     </div>
     <div class="mx-4 md:mx-16 lg:mx-10 flex flex-col justify-center">
       <div id="upcomingEvents">
-        <h3
+        <h1
           class="subh flex items-center justify-start gap-2 font-bold text-2xl lg:text-4xl mb-3 text-[#4b3a23]"
         >
           <svg
@@ -30,7 +30,7 @@
             />
           </svg>
           Upcoming Events
-        </h3>
+        </h1>
         <ul class="space-y-2">
           <li
             v-for="event in events.slice(0, 3)"
@@ -40,15 +40,15 @@
           >
             <div class="flex-1 flex items-center gap-4">
               <div>
-                <h5 class="font-semibold">{{ event.summary }}</h5>
-                <h5 class="text-gray-500 text-sm">
+                <h2 class="font-semibold">{{ event.summary }}</h2>
+                <h2 class="text-gray-500 text-sm">
                   <span v-if="event.end?.dateTime">
-                    {{ new Date(event.end.dateTime).toLocaleDateString() }}
+                  {{ new Date(event.end.dateTime).toLocaleDateString() }}
                   </span>
                   <span v-else-if="event.end?.date">
-                    {{ new Date(event.end.date).toLocaleDateString() }}
+                  {{ new Date(event.end.date).toLocaleDateString() }}
                   </span>
-                </h5>
+                </h2>
               </div>
             </div>
           </li>
