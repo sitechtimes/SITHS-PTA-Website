@@ -1,6 +1,6 @@
 <template>
-  <div class="grid lg:grid-cols-2 my-16 mx-2">
-    <div class="mx-4 md:mx-16">
+  <div class="grid lg:grid-cols-2 my-16">
+    <div class="mx-4 md:mx-[2.5rem]">
       <h2 class="font-normal lg:text-2xl md:xl" id="PTA">
         Parent Teacher Association @
       </h2>
@@ -55,12 +55,25 @@
         </ul>
         <Popup v-if="showPopup" @close="showPopup = false">
           <h2 class="text-xl font-bold mb-2">{{ selectedEvent?.summary }}</h2>
-          <p class="mb-4 text-gray-700 whitespace-pre-line">{{ selectedEvent?.description || 'No description available.' }}</p>
-          <div v-if="selectedEvent?.location" class="mb-2 text-sm text-gray-500">Location: {{ selectedEvent.location }}</div>
-          <div v-if="selectedEvent?.start?.dateTime" class="mb-2 text-sm text-gray-500">
+          <p class="mb-4 text-gray-700 whitespace-pre-line">
+            {{ selectedEvent?.description || "No description available." }}
+          </p>
+          <div
+            v-if="selectedEvent?.location"
+            class="mb-2 text-sm text-gray-500"
+          >
+            Location: {{ selectedEvent.location }}
+          </div>
+          <div
+            v-if="selectedEvent?.start?.dateTime"
+            class="mb-2 text-sm text-gray-500"
+          >
             Start: {{ new Date(selectedEvent.start.dateTime).toLocaleString() }}
           </div>
-          <div v-if="selectedEvent?.end?.dateTime" class="mb-2 text-sm text-gray-500">
+          <div
+            v-if="selectedEvent?.end?.dateTime"
+            class="mb-2 text-sm text-gray-500"
+          >
             End: {{ new Date(selectedEvent.end.dateTime).toLocaleString() }}
           </div>
         </Popup>
@@ -75,7 +88,7 @@
 <script setup>
 import { ref, onMounted, nextTick } from "vue";
 import { gsap } from "gsap";
-import Popup from './Popup.vue';
+import Popup from "./Popup.vue";
 
 const events = ref([]);
 const showPopup = ref(false);
@@ -97,8 +110,8 @@ onMounted(async () => {
     events.value = [];
   }
   gsap.from("#PTA, #SITHS, #address", {
-    delay: 0.5,
-    duration: 0.7,
+    // delay: 0.5,
+    duration: 1,
     y: 100,
     opacity: 0,
   });
