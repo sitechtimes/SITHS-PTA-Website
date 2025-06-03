@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen py-8 px-4">
+  <div class="min-h-screen py-8 px-4" id="upcomingEvents">
     <h1
       class="text-5xl font-bold text-center mb-10 tracking-wide text-[#4b3a23]"
     >
@@ -90,7 +90,5 @@ onMounted(async () => {
   } catch (e) {
     events.value = [];
   }
-
-  // gsap.from("h1", { delay: 0.5, duration: 0.7, y: 100, opacity: 0 });
 });
 </script>

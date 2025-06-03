@@ -61,6 +61,7 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import gsap from "gsap";
 
 const buttonType = ref("join");
