@@ -63,7 +63,6 @@ export async function fetchTextData() {
                 joinUsContent.value = []; 
             } else if (data.value) {
                 joinUsContent.value = data.value.joinUs || [];
-                console.log(joinUsContent.value)
             }
         } catch (error) {
             console.log(error);
