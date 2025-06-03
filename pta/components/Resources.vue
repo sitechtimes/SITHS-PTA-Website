@@ -20,16 +20,6 @@
 </template>
 
 <script setup>
-import { useHead } from '#app'; // Or from 'nuxt/app'
-
-// Set a title for the page if this component represents a page view
-useHead({
-  title: 'PTA Resources - SITHS', // Example: Set a descriptive title
-  meta: [
-    { name: 'description', content: 'Find useful resources provided by the Staten Island Technical High School PTA.' }
-  ]
-});
-
 const { resources } = await useWebsiteData();
 </script>
 

@@ -37,6 +37,8 @@
             :key="event.id"
             class="upcoming-event-li bg-white rounded-lg px-4 py-3 flex items-center justify-between shadow text-base hover:shadow-lg transition cursor-pointer"
             @click="openPopup(event)"
+            @keydown.enter="openPopup(event)"
+            tabindex="0"
           >
             <div class="flex-1 flex items-center gap-4">
               <div>
