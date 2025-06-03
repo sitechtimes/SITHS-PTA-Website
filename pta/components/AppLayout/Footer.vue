@@ -11,12 +11,13 @@
         </div>
         <p class="text-xs mt-2">SITHS PTA @2024</p>
       </div>
-      <div class="flex-1 lg:w-auto mb-8 lg:mb-90 flex flex-col justify-center max-w-96">
-        <div class="flex flex-col flex-wrap content-start justify-start max-h-40">
+      <div class="flex-1 lg:w-auto mb-8 lg:mb-90 flex flex-col justify-center">
+        <div class="flex flex-col flex-wrap content-start justify-start max-h-50">
           <template v-for="(info, index) in websiteInformation" :key="index">
-            <div v-if="info.title" class="flex items-center sm:w-1/3 max-w-64 py-1">
+            <div v-if="info.title" class="flex items-center py-1">
               <img :src="info.imageUrl" :alt="info.title" class="w-8 h-8 m-2 shrink-0">
-              <a :href="info.link" class="text-center text-sm">{{ info.title }}</a>
+              <a v-if="info.link" :href="info.link" class="text-left text-sm">{{ info.title }}</a>
+              <span v-else class="text-left text-sm">{{ info.title }}</span>
             </div>
           </template>
         </div>
