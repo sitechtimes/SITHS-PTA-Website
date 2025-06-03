@@ -19,7 +19,6 @@ export default defineType({
       name: 'link',
       title: 'Website Link',
       type: 'string',
-      validation: (rule) => rule.required()
     },
     {
       name: 'image',

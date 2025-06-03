@@ -12,7 +12,7 @@
         <p class="text-xs mt-2">SITHS PTA @2024</p>
       </div>
       <div class="flex-1 lg:w-auto mb-8 lg:mb-90 flex flex-col justify-center max-w-96">
-        <div class="flex flex-col flex-wrap content-start justify-start max-h-60">
+        <div class="flex flex-col flex-wrap content-start justify-start max-h-40">
           <template v-for="(info, index) in websiteInformation" :key="index">
             <div v-if="info.title" class="flex items-center sm:w-1/3 max-w-64 py-1">
               <img :src="info.imageUrl" :alt="info.title" class="w-8 h-8 m-2 shrink-0">
