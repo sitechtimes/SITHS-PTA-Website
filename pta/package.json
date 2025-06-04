@@ -11,7 +11,7 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
-    "@nuxt/content": "^3.0.0",
+    "@nuxt/content": "^3.5.1",
     "@nuxtjs/sanity": "^1.13.3",
     "@portabletext/vue": "^1.0.12",
     "@sanity/client": "^7.2.1",
