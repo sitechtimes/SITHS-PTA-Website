@@ -1,15 +1,24 @@
 <template>
     <div>
         <PortableText 
-            :value="joinUsContent" :components="myPortableTextComponents"/>
+            :value="joinUsContent" 
+            :components="myPortableTextComponents"
+        />
     </div>
 </template>
 
 <script setup>
-import { PortableText } from '@portabletext/vue'
-const { joinUsContent } = await fetchTextData();
+const { joinUsContent } = await fetchTextData(); 
 
 const myPortableTextComponents = {
+    block: {
+        normal: ({ index }, { slots }) => {
+            if (index === 0) {
+                return h('p', { style: 'font-weight: bold; font-size: 1.5rem;' }, slots.default?.());
+            }
+            return h('p', slots.default?.());
+        },
+    },
     marks: {
         link: ({ value }, { slots }) => {
             const rel = !value.href.startsWith('/') ? 'noreferrer noopener' : undefined;
@@ -17,5 +26,7 @@ const myPortableTextComponents = {
         },
     },
 };
-console.log(joinUsContent.value?.[1]?.children?.[0].text)
 </script>
+
+<style scoped>
+</style>
