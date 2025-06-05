@@ -26,7 +26,7 @@
           <div v-for="(info, index) in websiteInformation" :key="index">
             <div v-if="!info.title" class="p-1">
               <a :href="info.link" target="_blank" rel="noopener noreferrer" :aria-label="info.link || 'External Link'">
-                <img :src="info.imageUrl" :alt="info.link || 'Icon'" class="w-8">
+                <img :src="info.imageUrl" :alt="info.link || 'Icon'" class="w-8" aria-hidden="true">
               </a>
             </div>
           </div>
