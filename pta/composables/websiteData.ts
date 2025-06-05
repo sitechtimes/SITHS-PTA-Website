@@ -82,20 +82,19 @@ export async function useWebsiteData() {
       "imageUrl": image.asset->url,
       link
     }`;
-    console.log
     try {
       const { data, error } = await useSanityQuery<WebsiteInformation[]>(query);
       if (error?.value) {
-        console.error("Error fetching website information:", error.value);
-        return [];
+        throw new Error(String(error.value));
       } else if (data?.value) {
         websiteInformation.value = data.value;
+        return data.value;
       }
-    } catch (error) {
-      console.error("Error during website information fetch:", error);
       return [];
+    } catch (error) {
+      throw new Error(String(error));
     }
-  }
+}
 
   fetchPtaMembers()
   fetchGalleryImages()

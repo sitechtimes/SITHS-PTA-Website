@@ -11,7 +11,7 @@
         </div>
         <p class="text-xs mt-2">SITHS PTA @2024</p>
       </div>
-      <div class="flex-1 lg:w-auto mb-8 lg:mb-90 flex flex-col justify-center">
+      <div class="flex-1 lg:w-auto mb-8 flex flex-col justify-center">
         <div class="flex flex-col flex-wrap content-start justify-start max-h-50">
           <div v-for="(info, index) in websiteInformation" :key="index">
             <div v-if="info.title" class="flex items-center py-1">
@@ -44,9 +44,9 @@
 </template>
 
 <script setup>
-import { PortableText } from '@portabletext/vue';
+import { PortableText } from '@portabletext/vue'
 const { websiteInformation } = await useWebsiteData()
-const { aboutUsContent } = await fetchTextData();
+const { aboutUsContent } = await fetchTextData()
 </script>
 
 <style scoped>
