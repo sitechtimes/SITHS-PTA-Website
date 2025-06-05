@@ -10,9 +10,9 @@
       >
         STATEN ISLAND TECHNICAL HIGH SCHOOL
       </h1>
-      <p class="font-normal my-4 lg:text-2xl md:xl" id="address">
+      <h2 class="font-normal my-4 lg:text-2xl md:xl" id="address">
         485 Clawson Street, Staten Island, NY 10306
-      </p>
+      </h2>
     </div>
     <div class="mx-4 md:mx-16 lg:mx-10 flex flex-col justify-center">
       <div id="upcomingEvents">
