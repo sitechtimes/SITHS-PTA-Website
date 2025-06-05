@@ -54,6 +54,7 @@ export async function useWebsiteData() {
   async function fetchResources() {
     const query = `*[_type == "resource"] | order(order asc) {
       _id,
+      alt,
       name,
       description,
       link,
