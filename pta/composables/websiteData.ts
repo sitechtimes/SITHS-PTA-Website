@@ -90,7 +90,6 @@ export async function useWebsiteData() {
         websiteInformation.value = data.value;
         return data.value;
       }
-      return [];
     } catch (error) {
       throw new Error(String(error));
     }
