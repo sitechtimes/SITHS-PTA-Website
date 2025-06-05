@@ -13,23 +13,23 @@
       </div>
       <div class="flex-1 lg:w-auto mb-8 lg:mb-90 flex flex-col justify-center">
         <div class="flex flex-col flex-wrap content-start justify-start max-h-50">
-          <template v-for="(info, index) in websiteInformation" :key="index">
+          <div v-for="(info, index) in websiteInformation" :key="index">
             <div v-if="info.title" class="flex items-center py-1">
               <img :src="info.imageUrl" :alt="info.title" class="w-8 h-8 m-2 shrink-0">
               <a v-if="info.link" :href="info.link" class="text-left text-sm">{{ info.title }}</a>
               <span v-else class="text-left text-sm">{{ info.title }}</span>
             </div>
-          </template>
+          </div>
         </div>
 
         <div class="flex mt-4 space-x-3">
-          <template v-for="(info, index) in websiteInformation" :key="index">
+          <div v-for="(info, index) in websiteInformation" :key="index">
             <div v-if="!info.title" class="p-1">
               <a :href="info.link" target="_blank" rel="noopener noreferrer" :aria-label="info.link || 'External Link'">
                 <img :src="info.imageUrl" :alt="info.link || 'Icon'" class="w-8">
               </a>
             </div>
-          </template>
+          </div>
         </div>
       </div>
       <div id="thirdSection" class="flex-1 w-full lg:w-auto mx-4">
