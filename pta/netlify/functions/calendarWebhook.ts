@@ -5,15 +5,47 @@ export async function handler(event: any, context: any) {
 
   if (event.httpMethod === 'POST') {
     try {
-      const eventData = JSON.parse(event.body || '{}');
-      
-      if (!eventData.summary) {
-        return {
-          statusCode: 400,
-          body: JSON.stringify({ error: 'Event summary is required' })
-        };
+      const sanityEventData = JSON.parse(event.body || '{}');
+      console.log('Received Sanity event data:', sanityEventData);
+
+      let descriptionText = '';
+      if (sanityEventData.description && Array.isArray(sanityEventData.description)) {
+        descriptionText = sanityEventData.description
+          .map(block => {
+            if (block._type === 'block' && Array.isArray(block.children)) {
+              return block.children
+                .filter(child => child._type === 'span')
+                .map(span => span.text)
+                .join('');
+            }
+            return '';
+          })
+          .filter(text => text)
+          .join('\n\n');
       }
 
+      const startDate = new Date(sanityEventData.date);
+      const endDate = new Date(startDate);
+      endDate.setHours(endDate.getHours() + 1);
+
+      const googleCalendarEvent = {
+        summary: sanityEventData.title,
+        description: descriptionText,
+        start: {
+          dateTime: startDate.toISOString(),
+          timeZone: 'America/New_York'
+        },
+        end: {
+          dateTime: endDate.toISOString(),
+          timeZone: 'America/New_York'
+        },
+        extendedProperties: {
+          private: {
+            sanityId: sanityEventData._id
+          }
+        }
+      };
+      
       const url = `${baseUrl}/events?key=${apiKey}`;
       const response = await fetch(url, {
         method: 'POST',
@@ -21,7 +53,7 @@ export async function handler(event: any, context: any) {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${apiKey}`
         },
-        body: JSON.stringify(eventData)
+        body: JSON.stringify(googleCalendarEvent)
       });
 
       if (!response.ok) {
@@ -52,25 +84,44 @@ export async function handler(event: any, context: any) {
 
   else if (event.httpMethod === 'DELETE') {
     try {
-      const { eventId } = JSON.parse(event.body || '{}');
+      const sanityData = JSON.parse(event.body || '{}');
+      const sanityId = sanityData._id;
       
-      if (!eventId) {
+      if (!sanityId) {
         return {
           statusCode: 400,
-          body: JSON.stringify({ error: 'Event ID is required' })
+          body: JSON.stringify({ error: 'Sanity event ID is required' })
         };
       }
 
-      const url = `${baseUrl}/events/${eventId}?key=${apiKey}`;
-      const response = await fetch(url, {
+      const searchUrl = `${baseUrl}/events?privateExtendedProperty=sanityId=${sanityId}&key=${apiKey}`;
+      const searchResponse = await fetch(searchUrl);
+      
+      if (!searchResponse.ok) {
+        throw new Error(`Failed to find event with Sanity ID: ${sanityId}`);
+      }
+      
+      const searchResult = await searchResponse.json();
+      
+      if (!searchResult.items || searchResult.items.length === 0) {
+        return {
+          statusCode: 404,
+          body: JSON.stringify({ error: 'No matching Google Calendar event found' })
+        };
+      }
+
+      const googleEventId = searchResult.items[0].id;
+
+      const deleteUrl = `${baseUrl}/events/${googleEventId}?key=${apiKey}`;
+      const deleteResponse = await fetch(deleteUrl, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${apiKey}`
         }
       });
 
-      if (!response.ok) {
-        const errorData = await response.text();
+      if (!deleteResponse.ok) {
+        const errorData = await deleteResponse.text();
         throw new Error(`Failed to delete event: ${errorData}`);
       }
       
@@ -78,7 +129,8 @@ export async function handler(event: any, context: any) {
         statusCode: 200,
         body: JSON.stringify({
           message: 'Event deleted successfully',
-          eventId: eventId
+          sanityId: sanityId,
+          googleEventId: googleEventId
         })
       };
     } catch (error) {
@@ -100,4 +152,3 @@ export async function handler(event: any, context: any) {
     };
   }
 }
-//https://pta-calendar-testing.netlify.app/.netlify/functions/calendarWebhook
