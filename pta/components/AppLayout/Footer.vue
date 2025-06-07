@@ -35,7 +35,7 @@
         <h2 class="font-bold">About Us</h2>
         <ClientOnly>
           <p class="text-sm mb-8">
-            <PortableText v-if="aboutUsContent && aboutUsContent[0]" :value="aboutUsContent[0]" />
+            <PortableText :value="aboutUsContent[0]" />
           </p>
         </ClientOnly>
         <NuxtLink to="/Donate" class="bg-dark-brown text-white p-3 text-sm rounded-lg">Donate Now!</NuxtLink>
