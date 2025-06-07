@@ -9,12 +9,11 @@ export async function handler(event: any, context: any) {
       private_key: "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDdhLuJP7L4Kygm\nd5zEzPf/waUdlj1RAfRP2N+MofJf4m3HbT2MyZGehHVVYnWc8QXaGb2zOgCNPSF0\nQWvntWCYWBO/xsqTXBxnsAMk1+k6kmbmYetHk0IT2KpPhtggcVp+EtVMekfiYnGv\nH+p37ZzqaiWNXjQ0S6vM6AAv44VIN+wYHQC3H1yNFjMBNtkrIzZ6XmGaNN3GIy0d\nySIwauyYt1Ypn3bn9kSnra96a4926BPZBZamOQxX/tnX7ONWHEOk/CEl2SveNDCU\nCZAi9SBxPuFREmwtgsXFvzMzzFiizhR2/FcJ8FkjgZgp8n4RBKCsYE0SiU6VsHGt\no8mbWhH/AgMBAAECggEAEJe5qG0yDa7F4iPBhWhJB0pNAOtZCnFYCIcZL6KN0irW\nyEJhguMyWipX0559atUO+ChHcl5c3jd/AwNHfuKyKpcmW44bbHBQ3F9tzNuzZ6TB\num4JPqJEJ9Jp520VUVDMU3c7rO/X5Jg1JcYBPRx6TYDH8U/mHyiv5LhYEz46pI8Q\nE4vffVcwUBFap1u3fr1VZT8XNWVhByXK5DDNBfxHjURbMEt1HzpPOpxyGWUoMpz7\n7iDh8lqcIg+HXCD8IA0lVki89N/bVxw/H8KVKRRHcJnjhsu9c30nO6itvA6S2GKe\ntR+uc+OVeTy4tpaBAcH3a+iEUPDMiVkfJiTgzVAU2QKBgQD5/97A6sJmpr4viv9N\nYUtyn4GwMuDX84BqZbpCPzVuTH3F3qlrDi9XRjycgnVlIjO4BIUhJbPwfodyEnZP\nRaSrN56AvVWTvRbK2cPk4Zhll/e+83FvemsC0zosAvoAM1Lcbqj4nZejWkLswe3w\neZ27Wv/rEBu/tXUO1IAsryDSzQKBgQDi1dwnpGGsCxL7jNSTHh/usPYDg1qSSPiz\nSKGp0pTl8RKwVKCNWnVk9nLcvegAhO7XeEKAfj+e6tmHLtatCrd1NEIvAQ9Xuhb4\nhuup6sWTHgugHRtDjuwF3UyvwByBsASFzNr6hyY1+lvtg+f/Gzx9PBpVuweiRIhV\nESVWMtbv+wKBgG6BjMxHuSC46e6ICWwB6uDC4weopbyvVP8y8k8gM5UK2LmjP84j\nmgeA83/XJt9KbAQWc2aAjPZsZ6Cjyool5bENR9HuXyqL9cw60B2XHs8hipBseaLm\nQPEhv1/+/NUj2qe3fpdOyd2aI2UWIAAhMfjEM8WK/EkUg6bHhdS6oM6tAoGAPIMG\nnwCoGag+oSJ5luGDbT6B8n/5CmszBUjL76zAkfLUpHt+9RZ7mLpx+9cha/oKaSqo\nuvRy7mcCLqDdHf5s4HRXb4id2i5HcHc1qPd7S3rJaSY6nrQi3JGjooLiV+pn2nXC\nuPCSzfWCzoLQweo3IcWF1Pb221/i6qaPSkZ3tj8CgYEAjGtvsxsMQ1gv3xe/c08n\n243dj+Nn3xGKSoQ0MnfCYniLkFP1ZUIMnZk8uycptKEEIjvNJAwf6M6z2EX1E+QM\nCngyBAGaEiwSB5bgHS/adDIco88zmz7bA5hjcng1PetR8BHhajmT1NU9smJl65Bn\nDuphimLVvFR5dYrsVkjQUEY="
     };
 
-    const auth = new google.auth.JWT(
-      serviceAccountCredentials.client_email,
-      undefined,
-      serviceAccountCredentials.private_key,
-      ['https://www.googleapis.com/auth/calendar']
-    );
+    const auth = new google.auth.JWT({
+      email: serviceAccountCredentials.client_email,
+      key: serviceAccountCredentials.private_key,
+      scopes: ['https://www.googleapis.com/auth/calendar']
+    });
 
     const calendar = google.calendar({ version: 'v3', auth });
 
