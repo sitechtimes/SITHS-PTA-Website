@@ -19,7 +19,127 @@ export async function handler(event: any, context: any) {
 
     try {
       const sanityEventData = JSON.parse(event.body || '{}');
-      console.log('Received Sanity event data:', sanityEventData);
+
+      const sanityOperation = event.headers['sanity-operation'] || 'create';
+
+      if (sanityOperation === 'delete' && sanityEventData._id) {
+        const listResponse = await calendar.events.list({
+          calendarId: calendarId,
+          privateExtendedProperty: `sanityId=${sanityEventData._id}`
+        });
+        
+        if (listResponse.data.items && listResponse.data.items.length > 0) {
+          const eventId = listResponse.data.items[0].id;
+
+          await calendar.events.delete({
+            calendarId: calendarId,
+            eventId: eventId
+          });
+          
+          return {
+            statusCode: 200,
+            body: JSON.stringify({
+              message: 'Event deleted successfully',
+              sanityId: sanityEventData._id
+            })
+          };
+        } else {
+          return {
+            statusCode: 404,
+            body: JSON.stringify({ error: 'Event not found in Google Calendar' })
+          };
+        }
+      }
+      
+      if (sanityOperation === 'update' && sanityEventData._id) {
+        const listResponse = await calendar.events.list({
+          calendarId: calendarId,
+          privateExtendedProperty: `sanityId=${sanityEventData._id}`
+        });
+        
+        if (listResponse.data.items && listResponse.data.items.length > 0) {
+          const eventId = listResponse.data.items[0].id;
+          const existingEvent = listResponse.data.items[0];
+
+          if (!sanityEventData.startDate) {
+            return {
+              statusCode: 400,
+              body: JSON.stringify({ error: 'Start date is required for update' })
+            };
+          }
+
+          try {
+            new Date(sanityEventData.startDate);
+            if (sanityEventData.endDate) new Date(sanityEventData.endDate);
+          } catch (e) {
+            return {
+              statusCode: 400,
+              body: JSON.stringify({ error: 'Invalid date format for update' })
+            };
+          }
+
+          let descriptionText = '';
+          if (sanityEventData.description && Array.isArray(sanityEventData.description)) {
+            descriptionText = sanityEventData.description
+              .map(block => {
+                if (block._type === 'block' && Array.isArray(block.children)) {
+                  return block.children
+                    .filter(child => child._type === 'span')
+                    .map(span => span.text)
+                    .join('');
+                }
+                return '';
+              })
+              .filter(text => text)
+              .join('\n\n');
+          }
+          
+          const startDate = new Date(sanityEventData.startDate);
+          const endDate = sanityEventData.endDate ? 
+            new Date(sanityEventData.endDate) : 
+            (() => {
+              const date = new Date(startDate);
+              date.setHours(date.getHours() + 1);
+              return date;
+            })();
+
+          const updateResponse = await calendar.events.update({
+            calendarId: calendarId,
+            eventId: eventId,
+            requestBody: {
+              summary: sanityEventData.title || existingEvent.summary,
+              description: descriptionText || existingEvent.description,
+              start: {
+                dateTime: startDate.toISOString(),
+                timeZone: 'America/New_York'
+              },
+              end: {
+                dateTime: endDate.toISOString(),
+                timeZone: 'America/New_York'
+              },
+              extendedProperties: {
+                private: {
+                  sanityId: sanityEventData._id
+                }
+              }
+            }
+          });
+          
+          return {
+            statusCode: 200,
+            body: JSON.stringify({
+              message: 'Event updated successfully',
+              event: updateResponse.data
+            })
+          };
+        } else {
+          return {
+            statusCode: 404,
+            body: JSON.stringify({ error: 'Event not found in Google Calendar for update' })
+          };
+        }
+      }
+
       if (!sanityEventData.startDate) {
         return {
           statusCode: 400,
@@ -90,11 +210,11 @@ export async function handler(event: any, context: any) {
         })
       };
     } catch (error) {
-      console.error('Error creating calendar event:', error);
+      console.error('Error processing calendar event:', error);
       return {
         statusCode: 500,
         body: JSON.stringify({ 
-          error: 'Failed to create calendar event',
+          error: 'Failed to process calendar event',
           message: (error instanceof Error) ? error.message : String(error)
         })
       };
