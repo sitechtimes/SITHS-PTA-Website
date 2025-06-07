@@ -17,159 +17,89 @@ export async function handler(event: any, context: any) {
 
     const calendar = google.calendar({ version: 'v3', auth });
 
-    if (event.httpMethod === 'POST') {
+    try {
+      const sanityEventData = JSON.parse(event.body || '{}');
+      console.log('Received Sanity event data:', sanityEventData);
+      if (!sanityEventData.startDate) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Start date is required' })
+        };
+      }
+
       try {
-        const sanityEventData = JSON.parse(event.body || '{}');
-        console.log('Received Sanity event data:', sanityEventData);
+        new Date(sanityEventData.startDate);
+        if (sanityEventData.endDate) new Date(sanityEventData.endDate);
+      } catch (e) {
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: 'Invalid date format' })
+        };
+      }
+      let descriptionText = '';
+      if (sanityEventData.description && Array.isArray(sanityEventData.description)) {
+        descriptionText = sanityEventData.description
+          .map(block => {
+            if (block._type === 'block' && Array.isArray(block.children)) {
+              return block.children
+                .filter(child => child._type === 'span')
+                .map(span => span.text)
+                .join('');
+            }
+            return '';
+          })
+          .filter(text => text)
+          .join('\n\n');
+      }
 
-        // Process description (same as before)
-        let descriptionText = '';
-        if (sanityEventData.description && Array.isArray(sanityEventData.description)) {
-          descriptionText = sanityEventData.description
-            .map(block => {
-              if (block._type === 'block' && Array.isArray(block.children)) {
-                return block.children
-                  .filter(child => child._type === 'span')
-                  .map(span => span.text)
-                  .join('');
-              }
-              return '';
-            })
-            .filter(text => text)
-            .join('\n\n');
-        }
+      const startDate = new Date(sanityEventData.startDate);
+      const endDate = sanityEventData.endDate ? 
+        new Date(sanityEventData.endDate) : 
+        (() => {
+          const date = new Date(startDate);
+          date.setHours(date.getHours() + 1);
+          return date;
+        })();
 
-        const startDate = new Date(sanityEventData.date);
-        const endDate = new Date(startDate);
-        endDate.setHours(endDate.getHours() + 1);
-
-        const response = await calendar.events.insert({
-          calendarId: calendarId,
-          requestBody: {
-            summary: sanityEventData.title,
-            description: descriptionText,
-            start: {
-              dateTime: startDate.toISOString(),
-              timeZone: 'America/New_York'
-            },
-            end: {
-              dateTime: endDate.toISOString(),
-              timeZone: 'America/New_York'
-            },
-            extendedProperties: {
-              private: {
-                sanityId: sanityEventData._id
-              }
+      const response = await calendar.events.insert({
+        calendarId: calendarId,
+        requestBody: {
+          summary: sanityEventData.title,
+          description: descriptionText,
+          start: {
+            dateTime: startDate.toISOString(),
+            timeZone: 'America/New_York'
+          },
+          end: {
+            dateTime: endDate.toISOString(),
+            timeZone: 'America/New_York'
+          },
+          extendedProperties: {
+            private: {
+              sanityId: sanityEventData._id
             }
           }
-        });
-
-        return {
-          statusCode: 201,
-          body: JSON.stringify({
-            message: 'Event created successfully',
-            event: response.data
-          })
-        };
-      } catch (error) {
-        console.error('Error creating calendar event:', error);
-        return {
-          statusCode: 500,
-          body: JSON.stringify({ 
-            error: 'Failed to create calendar event',
-            message: (error instanceof Error) ? error.message : String(error)
-          })
-        };
-      }
-    }
-
-    else if (event.httpMethod === 'DELETE') {
-      try {
-        const sanityData = JSON.parse(event.body || '{}');
-        const sanityId = sanityData._id;
-        
-        if (!sanityId) {
-          return {
-            statusCode: 400,
-            body: JSON.stringify({ error: 'Sanity event ID is required' })
-          };
         }
+      });
 
-        const searchResponse = await calendar.events.list({
-          calendarId: calendarId,
-          privateExtendedProperty: [`sanityId=${sanityId}`]
-        });
-        
-        if (!searchResponse.data.items || searchResponse.data.items.length === 0) {
-          return {
-            statusCode: 404,
-            body: JSON.stringify({ error: 'No matching Google Calendar event found' })
-          };
-        }
-
-        const googleEventId = searchResponse.data.items[0].id as string;
-
-        await calendar.events.delete({
-          calendarId: calendarId,
-          eventId: googleEventId
-        });
-        
-        return {
-          statusCode: 200,
-          body: JSON.stringify({
-            message: 'Event deleted successfully',
-            sanityId: sanityId,
-            googleEventId: googleEventId
-          })
-        };
-      } catch (error) {
-        console.error('Error deleting calendar event:', error);
-        return {
-          statusCode: 500,
-          body: JSON.stringify({ 
-            error: 'Failed to delete calendar event',
-            message: (error instanceof Error) ? error.message : String(error)
-          })
-        };
-      }
-    }
-
-    else if (event.httpMethod === 'GET') {
-      try {
-        const response = await calendar.events.list({
-          calendarId: calendarId,
-          timeMin: (new Date()).toISOString(),
-          maxResults: 50,
-          singleEvents: true,
-          orderBy: 'startTime',
-        });
-        
-        return {
-          statusCode: 200,
-          headers: {
-            'Content-Type': 'application/json',
-            'Cache-Control': 'max-age=600'
-          },
-          body: JSON.stringify(response.data)
-        };
-      } catch (error) {
-        console.error('Error fetching calendar events:', error);
-        return {
-          statusCode: 500,
-          body: JSON.stringify({ 
-            error: 'Failed to fetch calendar events',
-            message: (error instanceof Error) ? error.message : String(error)
-          })
-        };
-      }
-    }
-
-    else {
       return {
-        statusCode: 405,
-        body: JSON.stringify({ error: 'Method not allowed' })
+        statusCode: 201,
+        body: JSON.stringify({
+          message: 'Event created successfully',
+          event: response.data
+        })
+      };
+    } catch (error) {
+      console.error('Error creating calendar event:', error);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ 
+          error: 'Failed to create calendar event',
+          message: (error instanceof Error) ? error.message : String(error)
+        })
       };
     }
+
   } catch (error) {
     console.error('General error:', error);
     return {
