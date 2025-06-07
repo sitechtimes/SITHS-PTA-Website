@@ -3,38 +3,7 @@ export async function handler(event: any, context: any) {
   const apiKey = 'AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU';
   const baseUrl = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}`;
 
-  if (event.httpMethod === 'GET') {
-    try {
-      const url = `${baseUrl}/events?key=${apiKey}`;
-      const response = await fetch(url);
-      
-      if (!response.ok) {
-        throw new Error(`Google Calendar API error: ${response.statusText}`);
-      }
-      
-      const data = await response.json();
-      
-      return {
-        statusCode: 200,
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'max-age=600'
-        },
-        body: JSON.stringify(data)
-      };
-    } catch (error) {
-      console.error('Error fetching calendar events:', error);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ 
-          error: 'Failed to fetch calendar events',
-          message: (error instanceof Error) ? error.message : String(error)
-        })
-      };
-    }
-  }
-
-  else if (event.httpMethod === 'POST') {
+  if (event.httpMethod === 'POST') {
     try {
       const eventData = JSON.parse(event.body || '{}');
       
