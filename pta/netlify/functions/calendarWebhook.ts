@@ -19,7 +19,38 @@ export async function handler(event: any, context: any) {
 
     try {
       const sanityEventData = JSON.parse(event.body || '{}');
-      console.log('Received Sanity event data:', sanityEventData);
+
+      const sanityOperation = event.headers['sanity-operation'] || 'create';
+
+      if (sanityOperation === 'delete' && sanityEventData._id) {
+        const listResponse = await calendar.events.list({
+          calendarId: calendarId,
+          privateExtendedProperty: `sanityId=${sanityEventData._id}`
+        });
+        
+        if (listResponse.data.items && listResponse.data.items.length > 0) {
+          const eventId = listResponse.data.items[0].id;
+
+          await calendar.events.delete({
+            calendarId: calendarId,
+            eventId: eventId
+          });
+          
+          return {
+            statusCode: 200,
+            body: JSON.stringify({
+              message: 'Event deleted successfully',
+              sanityId: sanityEventData._id
+            })
+          };
+        } else {
+          return {
+            statusCode: 404,
+            body: JSON.stringify({ error: 'Event not found in Google Calendar' })
+          };
+        }
+      }
+
       if (!sanityEventData.startDate) {
         return {
           statusCode: 400,
@@ -90,11 +121,11 @@ export async function handler(event: any, context: any) {
         })
       };
     } catch (error) {
-      console.error('Error creating calendar event:', error);
+      console.error('Error processing calendar event:', error);
       return {
         statusCode: 500,
         body: JSON.stringify({ 
-          error: 'Failed to create calendar event',
+          error: 'Failed to process calendar event',
           message: (error instanceof Error) ? error.message : String(error)
         })
       };
