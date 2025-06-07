@@ -22,10 +22,10 @@
           </div>
         </div>
         <div class="flex mt-4 space-x-3">
-          <div v-for="(info, index) in websiteInformation" :key="index">
+          <div v-for="info in websiteInformation" :key="info.title">
             <div v-if="!info.title" class="p-1">
               <a :href="info.link" target="_blank" rel="noopener noreferrer" :aria-label="info.link || 'External Link'">
-                <img :src="info.imageUrl" :alt="info.link || 'Icon'" class="w-8" aria-hidden="true">
+                <img :src="info.imageUrl" class="w-8" aria-hidden="true">
               </a>
             </div>
           </div>
