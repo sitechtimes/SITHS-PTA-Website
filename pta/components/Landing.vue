@@ -42,12 +42,7 @@
               <div>
                 <h5 class="font-semibold">{{ event.summary }}</h5>
                 <h5 class="text-gray-500 text-sm">
-                  <span v-if="event.end?.dateTime">
-                    {{ new Date(event.end.dateTime).toLocaleDateString() }}
-                  </span>
-                  <span v-else-if="event.end?.date">
-                    {{ new Date(event.end.date).toLocaleDateString() }}
-                  </span>
+                  {{ formatDateRange(event.start, event.end) }}
                 </h5>
               </div>
             </div>
@@ -84,6 +79,28 @@ const selectedEvent = ref(null);
 function openPopup(event) {
   selectedEvent.value = event;
   showPopup.value = true;
+}
+
+function formatDate(dateObj) {
+  if (!dateObj) return 'N/A';
+  
+  const date = dateObj.dateTime ? new Date(dateObj.dateTime) : 
+               dateObj.date ? new Date(dateObj.date) : null;
+  
+  if (!date) return 'N/A';
+  
+  return new Intl.DateTimeFormat('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  }).format(date);
+}
+
+function formatDateRange(startObj, endObj) {
+  const startDate = formatDate(startObj);
+  const endDate = formatDate(endObj);
+  
+  return startDate === endDate ? startDate : `${startDate} → ${endDate}`;
 }
 
 onMounted(async () => {
