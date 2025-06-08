@@ -101,17 +101,6 @@ function formatDateRange(startObj, endObj) {
   const endDate = formatDate(endObj);
   
   return startDate === endDate ? startDate : `${startDate} → ${endDate}`;
-
-function getEventStartDate(event) {
-  if (!event.start) return 0;
-  
-  if (event.start.dateTime) {
-    return new Date(event.start.dateTime).getTime();
-  } else if (event.start.date) {
-    return new Date(event.start.date).getTime();
-  }
-  
-  return 0;
 }
 
 onMounted(async () => {
@@ -120,7 +109,7 @@ onMounted(async () => {
   try {
     const res = await fetch(url);
     const data = await res.json();
-    events.value = (data.items || []).sort((a, b) => getEventStartDate(a) - getEventStartDate(b));
+    events.value = data.items || [];
   } catch (e) {
     events.value = [];
   }

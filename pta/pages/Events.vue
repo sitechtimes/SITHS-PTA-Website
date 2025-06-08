@@ -83,24 +83,12 @@ function formatDateRange(startObj, endObj) {
   return startDate === endDate ? startDate : `${startDate} → ${endDate}`;
 }
 
-function getEventStartDate(event) {
-  if (!event.start) return 0;
-  
-  if (event.start.dateTime) {
-    return new Date(event.start.dateTime).getTime();
-  } else if (event.start.date) {
-    return new Date(event.start.date).getTime();
-  }
-  
-  return 0;
-}
-
 onMounted(async () => {
   const url = 'https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU';
   try {
     const res = await fetch(url);
     const data = await res.json();
-    events.value = (data.items || []).sort((a, b) => getEventStartDate(a) - getEventStartDate(b));
+    events.value = data.items || [];
   } catch (e) {
     events.value = [];
   }
