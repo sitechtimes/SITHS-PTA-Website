@@ -4,6 +4,7 @@ import gallery from './gallery'
 import resources from './resources'
 import donationPageContent from './donationPageContent'
 import calendarEvent from './calendarEvent'
+import websiteInformation from './websiteInformation'
 
 export const schemaTypes = [
     staff,
@@ -11,5 +12,6 @@ export const schemaTypes = [
     donationPageContent,
     gallery,
     resources,
-    calendarEvent
+    calendarEvent,
+    websiteInformation
 ]
