@@ -4,18 +4,16 @@
       <div id="firstSection" class="flex-1 w-full lg:w-auto mx-4 mb-8 lg:mb-0">
         <img src="/logo/pta-logo.png" alt="PTA Logo" class="w-4/11" />
         <div id="links" class="mt-5 text-md">
-          <NuxtLink to="/">Home</NuxtLink> |
-          <NuxtLink to="/events">Events</NuxtLink> |
-          <NuxtLink to="/contacts">Contact Us</NuxtLink> |
+          <NuxtLink to="/">Home</NuxtLink> | <NuxtLink to="/events">Events</NuxtLink> | <NuxtLink to="/contacts">Contact Us</NuxtLink> |
           <NuxtLink to="/donate">Donate</NuxtLink>
         </div>
-        <p class="text-xs mt-2">SITHS PTA @2024</p>
+        <p class="text-xs mt-2">SITHS PTA @{{ new Date().getFullYear() }}</p>
       </div>
       <div class="flex-1 lg:w-auto mb-8 flex flex-col justify-center">
         <div class="flex flex-col flex-wrap content-start justify-start max-h-50">
           <div v-for="info in websiteInformation" :key="info.title">
             <div v-if="info.title" class="flex items-center py-1 text-sm">
-              <img :src="info.imageUrl" alt="" class="w-8 h-8 m-2 shrink-0">
+              <img :src="info.imageUrl" alt="" class="w-8 h-8 m-2 shrink-0" />
               <a v-if="info.link" :href="info.link">{{ info.title }}</a>
               <span v-else>{{ info.title }}</span>
             </div>
@@ -25,7 +23,7 @@
           <div v-for="info in websiteInformation" :key="info.title">
             <div v-if="!info.title" class="p-1">
               <a :href="info.link" target="_blank" rel="noopener noreferrer" :aria-label="info.link || 'External Link'">
-                <img :src="info.imageUrl" class="w-8" alt="">
+                <img :src="info.imageUrl" class="w-8" alt="" />
               </a>
             </div>
           </div>
@@ -51,5 +49,4 @@ const { data: aboutUsData } = await useAsyncData('footerAboutUs', async () => {
 });
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
