@@ -44,7 +44,6 @@ export async function useWebsiteData() {
 
     try {
       const { data, error } = await useSanityQuery<PtaMember[]>(query);
-      console.log(data.value);
       if (error.value) {
         console.error("Error fetching staff members:", error.value);
         sltMembers.value = [];
