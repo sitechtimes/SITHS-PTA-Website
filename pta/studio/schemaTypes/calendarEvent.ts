@@ -12,19 +12,8 @@ export default defineType({
       validation: Rule => Rule.required(),
     }),
     defineField({
-<<<<<<< Updated upstream
       name: 'startDate',
       title: 'Start Date & Time',
-=======
-      name: 'startdate',
-      title: 'Start Date',
-      type: 'datetime',
-      validation: Rule => Rule.required(),
-    }),
-    defineField({
-      name: 'enddate',
-      title: 'End Date',
->>>>>>> Stashed changes
       type: 'datetime',
       validation: Rule => Rule.required(),
     }),
