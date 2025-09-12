@@ -14,7 +14,7 @@
           <div v-for="info in websiteInformation" :key="info.title">
             <div v-if="info.title" class="flex items-center py-1 text-sm">
               <img :src="info.imageUrl" alt="" class="w-8 h-8 m-2 shrink-0" />
-              <a v-if="info.link" :href="info.link">{{ info.title }}</a>
+              <a v-if="info.link" :href="info.link" target="_blank" >{{ info.title }}</a>
               <span v-else>{{ info.title }}</span>
             </div>
           </div>
