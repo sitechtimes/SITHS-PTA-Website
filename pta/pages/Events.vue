@@ -65,8 +65,8 @@ function openPopup(event) {
 }
 
 onMounted(async () => {
-  const url = 'https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU';
-  try {
+  const url = 'https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU&timeMin=${new Date().toISOString()}&singleEvents=true&orderBy=startTime&maxResults=4';
+  try {   //added query to the url so that it only returns four most recent events
     const res = await fetch(url);
     const data = await res.json();
     events.value = data.items || [];
