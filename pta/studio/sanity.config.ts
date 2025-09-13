@@ -10,7 +10,7 @@ export default defineConfig({
   projectId: 'o006ti7s',
   dataset: 'pta',
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [structureTool()],
 
   schema: {
     types: schemaTypes,
