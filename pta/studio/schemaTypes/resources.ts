@@ -1,12 +1,11 @@
-// filepath: c:\Users\oleg2\Downloads\PTA-Sanity-Website\pta\studio\schemaTypes\resource.ts
-import {defineType} from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 export default defineType({
   name: 'resource',
   title: 'Resource',
   type: 'document',
   fields: [
-    {
+    defineField({
       name: 'image',
       title: 'Image',
       type: 'image',
@@ -14,26 +13,20 @@ export default defineType({
         hotspot: true,
       },
       validation: (rule) => rule.required(),
-    },
-    {
-      name: 'alt',
-      title: 'Alternative Text',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: 'name',
       title: 'Resource Name',
       type: 'string',
       validation: (rule) => rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
       validation: (rule) => rule.required(),
-    },
-    {
+    }),
+    defineField({
       name: 'link',
       title: 'Link to Resource',
       type: 'url',
@@ -41,12 +34,12 @@ export default defineType({
         rule.required().uri({
           scheme: ['http', 'https'],
         }),
-    },
-    {
+    }),
+    defineField({
       name: 'order',
       title: 'Order',
       type: 'number',
-    }
+    })
   ],
   orderings: [
     {
