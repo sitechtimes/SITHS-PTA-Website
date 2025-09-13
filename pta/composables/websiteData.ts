@@ -1,33 +1,58 @@
-import type { BlockContent } from '@/utils/types';
-
 export async function useWebsiteData() {
   const fetchLoading = ref(false);
-  const ptaMembers = ref<PtaMember[]>([]);
+  const staffMembers = ref<PtaMember[]>([]);
+  const sltMembers = ref<PtaMember[]>([]);
   const galleryImages = ref<GalleryImage[]>([]);
   const resources = ref<Resource[]>([]);
-  
-  async function fetchPtaMembers() {
-    const query = `*[_type == "ptaMember"]{
+  const websiteInformation = ref<WebsiteInformation[]>([]);
+
+  async function fetchStaffMembers() {
+    const query = `*[_type == "staffMember"]{
       _id,
       name,
       role,
       email,
       phone,
       "profilePhotoUrl": profilePhoto.asset->url,
-      memberType
+      order
     }`;
 
     try {
       const { data, error } = await useSanityQuery<PtaMember[]>(query);
       if (error.value) {
-        console.error("Error fetching PTA members:", error.value);
-        ptaMembers.value = [];
+        console.error("Error fetching staff members:", error.value);
+        staffMembers.value = [];
       } else if (data.value) {
-        ptaMembers.value = data.value;
+        staffMembers.value = data.value;
       }
     } catch (error) {
-      console.error("Error during PTA members fetch:", error);
-      ptaMembers.value = [];
+      console.error("Error during staff members fetch:", error);
+      staffMembers.value = [];
+    }
+  }
+
+  async function fetchSLTMembers() {
+    const query = `*[_type == "sltMember"]{
+      _id,
+      name,
+      role,
+      email,
+      phone,
+      "profilePhotoUrl": profilePhoto.asset->url,
+      order
+    }`;
+
+    try {
+      const { data, error } = await useSanityQuery<PtaMember[]>(query);
+      if (error.value) {
+        console.error("Error fetching staff members:", error.value);
+        sltMembers.value = [];
+      } else if (data.value) {
+        sltMembers.value = data.value;
+      }
+    } catch (error) {
+      console.error("Error during staff members fetch:", error);
+      sltMembers.value = [];
     }
   }
 
@@ -54,12 +79,13 @@ export async function useWebsiteData() {
   async function fetchResources() {
     const query = `*[_type == "resource"] | order(order asc) {
       _id,
+      alt,
       name,
       description,
       link,
       "imageUrl": image.asset->url,
       order
-    }`; 
+    }`;
 
     try {
       const { data, error } = await useSanityQuery<Resource[]>(query);
@@ -74,17 +100,41 @@ export async function useWebsiteData() {
       resources.value = [];
     }
   }
-  fetchPtaMembers(),
-  fetchGalleryImages(),
-  fetchResources()
+
+  async function fetchWebsiteInformation() {
+    const query = `*[_type == "websiteInformation"]{
+      _id,
+      title,
+      description,
+      "imageUrl": image.asset->url,
+      link
+    }`;
+    try {
+      const { data, error } = await useSanityQuery<WebsiteInformation[]>(query);
+      console.log(data);
+      if (error?.value) {
+        throw new Error(String(error.value));
+      } else if (data?.value) {
+        websiteInformation.value = data.value;
+        return data.value;
+      }
+    } catch (error) {
+      throw new Error(String(error));
+    }
+  }
+
+  fetchStaffMembers();
+  fetchSLTMembers();
+  fetchGalleryImages();
+  fetchResources();
+  fetchWebsiteInformation();
 
   return {
-    ptaMembers,
+    staffMembers,
+    sltMembers,
     galleryImages,
     fetchLoading,
-    fetchPtaMembers,
-    fetchGalleryImages,
-    fetchResources,
     resources,
+    websiteInformation,
   };
 }
