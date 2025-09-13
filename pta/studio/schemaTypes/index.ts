@@ -6,6 +6,7 @@ import donationPageContent from './donationPageContent'
 import calendarEvent from './calendarEvent'
 import joinUsPageContent from './joinUs'
 
+
 export const schemaTypes = [
     staff,
     homePageContent,
