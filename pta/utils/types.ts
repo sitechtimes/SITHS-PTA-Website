@@ -68,6 +68,9 @@ export interface Resource extends SanityDocument {
   order?: number;
 }
 
+export interface JoinUsData extends SanityDocument {
+  joinUs: BlockContent[];
+};
 export interface WebsiteInformation extends SanityDocument {
   _id: string;
   title: string;
