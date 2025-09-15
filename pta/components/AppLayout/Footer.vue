@@ -3,11 +3,12 @@
     <div id="sections" class="flex flex-col items-center sm:flex-row my-7 mx-4 xl:mx-14 p-4">
       <div id="firstSection" class="flex-1 w-full lg:w-auto mx-4 mb-8 lg:mb-0">
         <img src="/logo/pta-logo.png" alt="PTA Logo" class="w-4/11" />
-        <div id="links" class="mt-5 text-md">
+        <div id="links" class="mt-5 text-l">
           <NuxtLink to="/">Home</NuxtLink> | <NuxtLink to="/events">Events</NuxtLink> | <NuxtLink to="/contacts">Contact Us</NuxtLink> |
           <NuxtLink to="/donate">Donate</NuxtLink>
         </div>
-        <p class="text-xs mt-2">SITHS PTA @{{ new Date().getFullYear() }}</p>
+        <p class="text-md mt-2">SITHS PTA @{{ new Date().getFullYear() }}</p>
+        <a href="mailto: sitechpta@gmail.com" target="_blank" rel="noopener noreferrer"> sitechpta@gmail.com</a>
       </div>
       <div class="flex-1 lg:w-auto mb-8 flex flex-col justify-center">
         <div class="flex flex-col flex-wrap content-start justify-start max-h-50">
