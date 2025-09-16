@@ -27,19 +27,6 @@ const props = defineProps({
   bakeSales: { type: Array, required: true },
   monetaryDonations: { type: Array, required: true },
 });
-
-onMounted(() => {
-  const tl = gsap.timeline();
-  tl.from("#title", { opacity: 0, y: 20, duration: 0.5 })
-    .from("#bake", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3")
-    .from("#paragraph1", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3")
-    .from("#paragraph2", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3")
-    .from("#paragraph3", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3")
-    .from("button", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3")
-    .from("#monetary", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3")
-    .from("#paragraph5", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3")
-    .from("#paragraph6", { opacity: 0, y: 20, duration: 0.5 }, "-=0.3");
-});
 </script>
 
 <style scoped></style>

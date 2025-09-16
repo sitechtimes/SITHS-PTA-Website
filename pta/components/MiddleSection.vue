@@ -24,15 +24,6 @@ const props = defineProps({
   aboutUs: { type: Array, required: true },
   activitiesContent: { type: Array, required: true },
 });
-
-onMounted(() => {
-  gsap.from("#aboutUs", { opacity: 0, x: 100, duration: 1 });
-  gsap.from("#activities", { opacity: 0, x: 100, duration: 1 });
-});
 </script>
 
-<style scoped>
-.yap > * {
-  @apply text-base md:text-xl my-4;
-}
-</style>
+<style scoped></style>

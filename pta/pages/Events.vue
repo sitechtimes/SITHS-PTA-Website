@@ -1,9 +1,15 @@
 <template>
-  <div class="min-h-screen py-8 px-4">
-    <h1 class="text-5xl font-bold text-center mb-10 tracking-wide text-[#4b3a23]">EVENTS</h1>
+  <div class="min-h-screen py-8 px-4" id="upcomingEvents">
+    <h1
+      class="text-5xl font-bold text-center mb-10 tracking-wide text-[#4b3a23]"
+    >
+      EVENTS
+    </h1>
     <div class="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
       <div class="flex-1 lg:w-1/2 w-full">
-        <h2 class="text-2xl font-bold mb-8 text-[#4b3a23] tracking-wide">UPCOMING EVENTS</h2>
+        <h2 class="text-2xl font-bold mb-8 text-[#4b3a23] tracking-wide">
+          UPCOMING EVENTS
+        </h2>
         <ul v-if="events.length">
           <li
             v-for="event in events"
@@ -35,12 +41,22 @@
     </div>
     <Popup v-if="showPopup" @close="showPopup = false">
       <h2 class="text-xl font-bold mb-2">{{ selectedEvent?.summary }}</h2>
-      <p class="mb-4 text-gray-700 whitespace-pre-line">{{ selectedEvent?.description || 'No description available.' }}</p>
-      <div v-if="selectedEvent?.location" class="mb-2 text-sm text-gray-500">Location: {{ selectedEvent.location }}</div>
-      <div v-if="selectedEvent?.start?.dateTime" class="mb-2 text-sm text-gray-500">
+      <p class="mb-4 text-gray-700 whitespace-pre-line">
+        {{ selectedEvent?.description || "No description available." }}
+      </p>
+      <div v-if="selectedEvent?.location" class="mb-2 text-sm text-gray-500">
+        Location: {{ selectedEvent.location }}
+      </div>
+      <div
+        v-if="selectedEvent?.start?.dateTime"
+        class="mb-2 text-sm text-gray-500"
+      >
         Start: {{ new Date(selectedEvent.start.dateTime).toLocaleString() }}
       </div>
-      <div v-if="selectedEvent?.end?.dateTime" class="mb-2 text-sm text-gray-500">
+      <div
+        v-if="selectedEvent?.end?.dateTime"
+        class="mb-2 text-sm text-gray-500"
+      >
         End: {{ new Date(selectedEvent.end.dateTime).toLocaleString() }}
       </div>
     </Popup>
@@ -48,9 +64,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { gsap } from 'gsap';
-import Popup from '../components/Popup.vue';
+import { ref, onMounted } from "vue";
+import { gsap } from "gsap";
+import Popup from "../components/Popup.vue";
 
 const events = ref([]);
 const showPopup = ref(false);
@@ -84,7 +100,8 @@ function formatDateRange(startObj, endObj) {
 }
 
 onMounted(async () => {
-  const url = 'https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU';
+  const url =
+    "https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU";
   try {
     const res = await fetch(url);
     const data = await res.json();
@@ -92,7 +109,5 @@ onMounted(async () => {
   } catch (e) {
     events.value = [];
   }
-
-  gsap.from("h1", { delay: 0.5, duration: 0.7, y: 100, opacity: 0 });
 });
 </script>

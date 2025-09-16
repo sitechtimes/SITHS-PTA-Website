@@ -105,9 +105,8 @@ onMounted(async () => {
   } catch (e) {
     events.value = [];
   }
-  gsap.from("#PTA, #SITHS, #address", {
-    delay: 0.5,
-    duration: 0.7,
+  gsap.from("#PTA, #SITHS, #address, #upcomingEvents", {
+    duration: 1,
     y: 100,
     opacity: 0,
   });
