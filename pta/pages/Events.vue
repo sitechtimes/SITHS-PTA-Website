@@ -84,7 +84,7 @@ function formatDateRange(startObj, endObj) {
 }
 
 onMounted(async () => {
-  const url = 'https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU';
+  const url = 'https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU&timeMin=${new Date().toISOString()}&singleEvents=true&orderBy=startTime&maxResults=4';
   try {
     const res = await fetch(url);
     const data = await res.json();
