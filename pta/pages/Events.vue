@@ -6,7 +6,7 @@
         <h2 class="text-2xl font-bold mb-8 text-[#4b3a23] tracking-wide">UPCOMING EVENTS</h2>
         <ul v-if="events.length">
           <li
-            v-for="event in events"
+            v-for="event in events.slice(0,5)"
             :key="event.id"
             class="bg-white rounded-xl mb-6 px-8 py-6 flex items-center justify-between shadow transition hover:shadow-lg text-lg cursor-pointer"
             @click="openPopup(event)"
@@ -88,23 +88,11 @@ onMounted(async () => {
   try {
     const res = await fetch(url);
     const data = await res.json();
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-    const upcomingEvents = (data.items || [])
-      .map(event => ({
-        ...event,
-        startDateTime: event.start.dateTime ? new Date(event.start.dateTime) : new Date(event.start.date.replace(/-/g, '/'))
-      }))
-      .filter(event => event.startDateTime >= today)
-      .sort((a, b) => a.startDateTime - b.startDateTime);
-
-    events.value = upcomingEvents.slice(0, 5);
+    events.value = data.items || [];
   } catch (e) {
     events.value = [];
   }
 
   gsap.from("h1", { delay: 0.5, duration: 0.7, y: 100, opacity: 0 });
-  //&timeMin=${new Date().toISOString()}&singleEvents=true&orderBy=startTime&maxResults=4
 });
 </script>
