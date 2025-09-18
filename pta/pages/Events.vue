@@ -84,11 +84,22 @@ function formatDateRange(startObj, endObj) {
 }
 
 onMounted(async () => {
-  const url = 'https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU&timeMin=${new Date().toISOString()}&singleEvents=true&orderBy=startTime&maxResults=4';
+  const url = `https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU`;
   try {
     const res = await fetch(url);
     const data = await res.json();
-    events.value = data.items || [];
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const upcomingEvents = (data.items || [])
+      .map(event => ({
+        ...event,
+        startDateTime: event.start.dateTime ? new Date(event.start.dateTime) : new Date(event.start.date.replace(/-/g, '/'))
+      }))
+      .filter(event => event.startDateTime >= today)
+      .sort((a, b) => a.startDateTime - b.startDateTime);
+
+    events.value = upcomingEvents.slice(0, 5);
   } catch (e) {
     events.value = [];
   }
