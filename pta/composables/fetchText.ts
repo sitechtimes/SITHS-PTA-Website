@@ -63,10 +63,10 @@ export async function fetchTextData() {
                 joinUsContent.value = []; 
             } else if (data.value) {
                 joinUsContent.value = data.value.joinUs || [];
+                console.log(joinUsContent)
             }
         } catch (error) {
             console.log(error);
-            joinUsContent.value = [];
         }
     }
     
