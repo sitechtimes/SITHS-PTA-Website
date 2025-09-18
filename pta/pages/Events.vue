@@ -88,7 +88,18 @@ onMounted(async () => {
   try {
     const res = await fetch(url);
     const data = await res.json();
-    events.value = data.items || [];
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    const upcomingEvents = (data.items || [])
+      .map(event => ({
+        ...event,
+        startDateTime: event.start.dateTime ? new Date(event.start.dateTime) : new Date(event.start.date.replace(/-/g, '/'))
+      }))
+      .filter(event => event.startDateTime >= today)
+      .sort((a, b) => a.startDateTime - b.startDateTime);
+
+    events.value = upcomingEvents.slice(0, 5);
   } catch (e) {
     events.value = [];
   }
