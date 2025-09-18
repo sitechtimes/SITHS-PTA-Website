@@ -16,6 +16,8 @@
     "@portabletext/vue": "^1.0.12",
     "@sanity/client": "^7.2.1",
     "@sanity/visual-editing": "^2.12.14",
+    "better-sqlite3": "^12.2.0",
+    "create-sanity": "^4.9.0",
     "gsap": "^3.12.5",
     "nuxt": "^3.13.0",
     "prettier": "^3.5.3",
