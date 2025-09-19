@@ -1,7 +1,7 @@
 <template>
   <div
     id="profile"
-    class="content-center w-1/2 2xl:w-1/3 my-4 flex items-center text-center text-wrap flex-col px-1"
+    class="content-center w-1/2 my-4 flex items-center text-center text-wrap flex-col px-1"
   >
     <img
       :src="member.profilePhotoUrl || '/pfps/default-profile.webp'"

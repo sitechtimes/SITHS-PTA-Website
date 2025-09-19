@@ -11,7 +11,7 @@
             class="bg-white rounded-xl mb-6 px-8 py-6 flex items-center justify-between shadow transition hover:shadow-lg text-lg cursor-pointer"
             @click="openPopup(event)"
           >
-            <div class="font-semibold">{{ event.summary }}</div>
+            <div class="font-semibold md:text-lg text-base">{{ event.summary }}</div>
             <div class="ml-8 text-right font-medium text-[#4b3a23]">
               <div>
                 {{ formatDateRange(event.start, event.end) }}

@@ -1,5 +1,5 @@
 <template>
-    <Landing/>
+  <Landing />
     <div class="mx-10">
         <MiddleSection
           :aboutUs="aboutUsContent"
