@@ -1,5 +1,5 @@
 <template>
-  <div class="grid lg:grid-cols-2 my-16 mx-2">
+  <div class="grid lg:grid-cols-2 my-16">
     <div class="mx-4 md:mx-9">
       <h2 class="font-normal lg:text-2xl md:xl" id="PTA">
         Parent Teacher Association @
