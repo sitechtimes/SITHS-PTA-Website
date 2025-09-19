@@ -2,14 +2,14 @@
   <div id="aboutUs">
     <h2 class="text-xl md:text-2xl lg:text-4xl font-bold">ABOUT US</h2>
     <div class="text-base md:text-lg lg:text-2xl mt-2 lg:my-6 yap">
-      <PortableText :value="aboutUs" />
+      <PortableText :value="aboutUs" :components="myPortableTextComponents" />
     </div>
   </div>
   <div id="activities">
     <h2 class="text-xl md:text-2xl lg:text-4xl font-bold mt-6">ACTIVITIES</h2>
     <div class="flex flex-wrap lg:flex-nowrap lg:items-start lg:space-x-6">
       <div class="text-base md:text-lg lg:text-2xl mt-2 lg:my-6 lg:w-2/3 yap">
-        <PortableText :value="activitiesContent" />
+        <PortableText :value="activitiesContent" :components="myPortableTextComponents" />
       </div>
       <Carousel class="w-full lg:w-1/3" />
     </div>
@@ -19,6 +19,7 @@
 <script setup>
 import { gsap } from "gsap";
 import { PortableText } from "@portabletext/vue";
+import myPortableTextComponents from '@/utils/portableTextComponents';
 
 const props = defineProps({
   aboutUs: { type: Array, required: true },

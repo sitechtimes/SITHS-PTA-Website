@@ -6,12 +6,12 @@
         <h2 class="text-2xl font-bold mb-8 text-[#4b3a23] tracking-wide">UPCOMING EVENTS</h2>
         <ul v-if="events.length">
           <li
-            v-for="event in events"
+            v-for="event in events.slice(0,5)"
             :key="event.id"
             class="bg-white rounded-xl mb-6 px-8 py-6 flex items-center justify-between shadow transition hover:shadow-lg text-lg cursor-pointer"
             @click="openPopup(event)"
           >
-            <div class="font-semibold">{{ event.summary }}</div>
+            <div class="font-semibold md:text-lg text-base">{{ event.summary }}</div>
             <div class="ml-8 text-right font-medium text-[#4b3a23]">
               <div>
                 {{ formatDateRange(event.start, event.end) }}
@@ -84,22 +84,11 @@ function formatDateRange(startObj, endObj) {
 }
 
 onMounted(async () => {
-  const url = `https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU`;
+  const url = 'https://www.googleapis.com/calendar/v3/calendars/6451dd61d5cf381222e6f6c765ac5e326847743184a91af0f854ca6fd3920764@group.calendar.google.com/events?key=AIzaSyDVFq2-peB2fQA3Oiezt-ihZqzII49pWAU';
   try {
     const res = await fetch(url);
     const data = await res.json();
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-    const upcomingEvents = (data.items || [])
-      .map(event => ({
-        ...event,
-        startDateTime: event.start.dateTime ? new Date(event.start.dateTime) : new Date(event.start.date.replace(/-/g, '/'))
-      }))
-      .filter(event => event.startDateTime >= today)
-      .sort((a, b) => a.startDateTime - b.startDateTime);
-
-    events.value = upcomingEvents.slice(0, 5);
+    events.value = data.items || [];
   } catch (e) {
     events.value = [];
   }

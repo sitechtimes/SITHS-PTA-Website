@@ -17,5 +17,10 @@ export default defineType({
       type: 'array',
       of: [{ type: 'block' }],
     }),
+     defineField({
+       name: 'donationLink',
+       title: 'Donation Link',
+       type: 'url'
+    }),
   ],
 })

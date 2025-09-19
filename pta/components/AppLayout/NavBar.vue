@@ -2,7 +2,7 @@
 <header
   :class="[
     'grid grid-cols-5 z-100 w-full justify-end h-fit pb-5 fixed top-0 transition-colors duration-500',
-    scrolled ? 'bg-gradient-to-b from-[#ffb393] via-[#ffdcbc] to-screen' : 'bg-transparent'
+    'bg-gradient-to-b from-[#ffb393] to-screen' , 'bg-transparent'
   ]"
   id="navbar"
 >
