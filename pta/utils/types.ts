@@ -34,6 +34,7 @@ export interface HomePageData {
 export interface DonationPageData {
   bakeSales?: BlockContent[];
   monetaryDonations?: BlockContent[];
+  donationLink?: string;
 }
 
 export interface GalleryImage extends SanityDocument {
