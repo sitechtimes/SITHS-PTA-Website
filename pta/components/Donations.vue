@@ -5,13 +5,11 @@
       <h2 id="bake" class="text-3xl sm:text-4xl font-bold">Bake Sales</h2>
       <div v-if="bakeSales && bakeSales.length > 0" class="text-lg sm:text-xl lg:text-2xl my-6">
           <PortableText :value="bakeSales" />
-
         <div v-if="donationLink">
         <a id="button" target="_blank" :href="donationLink" rel="noopener noreferrer" >
-          <button class="py-3 px-4 font-bold rounded-lg my-2 bg-dark-brown text-white text-lg">Donate Item</button>
+          <button class="py-3 px-4 font-bold rounded-lg my-2 bg-dark-brown text-white text-lg mt-8">Donate Item</button>
         </a>
         </div>
-      
     </div>
 
       
