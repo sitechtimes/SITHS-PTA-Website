@@ -7,7 +7,8 @@ export async function fetchTextData() {
     const bakeSaleContent = ref<BlockContent[]>([]);
     const monetaryDonationContent = ref<BlockContent[]>([]);
     const joinUsContent = ref<BlockContent[]>([]);
- const donationLink = ref<string>("");
+    const donationLink = ref("");
+    const donateItemButtonText = ref("");
 
     async function fetchHomePageContent() {
         const query = `*[_type == "homePageContent"][0]{
@@ -35,7 +36,8 @@ export async function fetchTextData() {
         const query = `*[_type == "donationPageContent"][0]{
             bakeSales,
             monetaryDonations,
-            donationLink
+            donationLink,
+            donateItemButtonText
         }`;
         try {
             const { data, error } = await useSanityQuery<DonationPageData>(query);
@@ -44,16 +46,19 @@ export async function fetchTextData() {
                 bakeSaleContent.value = [];
                 monetaryDonationContent.value = [];
                 donationLink.value = "";
+                donateItemButtonText.value = "Donate Item";
             } else if (data.value) {
                 bakeSaleContent.value = data.value.bakeSales || [];
                 monetaryDonationContent.value = data.value.monetaryDonations || [];
                 donationLink.value = data.value.donationLink || "";
+                donateItemButtonText.value = data.value.donateItemButtonText || "Donate Item";
             }
         } catch (error) {
             console.log(error);
             bakeSaleContent.value = [];
             monetaryDonationContent.value = [];
             donationLink.value = "";
+            donateItemButtonText.value = "Donate Item";
         }
     }
     
@@ -89,6 +94,7 @@ export async function fetchTextData() {
         fetchHomePageContent,
         fetchDonationPageContent,
         fetchJoinUsContent,
-        donationLink
+        donationLink,
+        donateItemButtonText
     };
 }

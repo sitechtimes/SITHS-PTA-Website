@@ -7,7 +7,7 @@
           <PortableText :value="bakeSales" />
         <div v-if="donationLink">
         <a id="button" target="_blank" :href="donationLink" rel="noopener noreferrer" >
-          <button class="py-3 px-4 font-bold rounded-lg my-2 bg-dark-brown text-white text-lg mt-8">Donate Item</button>
+          <button class="py-3 px-4 font-bold rounded-lg my-2 bg-dark-brown text-white text-lg mt-8">{{ donateItemButtonText }}</button>
         </a>
         </div>
     </div>
@@ -31,6 +31,7 @@ const props = defineProps({
   bakeSales: { type: Array, required: true },
   monetaryDonations: { type: Array, required: true },
   donationLink: { type: String, required: false },
+  donateItemButtonText: { type: String, required: false, default: 'Donate Item' },
 });
 
 onMounted(() => {

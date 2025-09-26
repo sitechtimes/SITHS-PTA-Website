@@ -35,6 +35,7 @@ export interface DonationPageData {
   bakeSales?: BlockContent[];
   monetaryDonations?: BlockContent[];
   donationLink?: string;
+  donateItemButtonText?: string;
 }
 
 export interface GalleryImage extends SanityDocument {
@@ -82,4 +83,5 @@ export interface WebsiteInformation extends SanityDocument {
     hotspot?: ImageHotspot;
     crop?: ImageCrop;
   };
+  footerDonateButtonText?: string;
 }

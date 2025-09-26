@@ -29,5 +29,11 @@ export default defineType({
       },
       validation: (rule) => rule.required(),
     },
+    {
+      name: 'footerDonateButtonText',
+      title: 'Footer Donate Button Text',
+      type: 'string',
+      description: 'Text for the Donate Now button in the footer',
+    },
   ]
 })

@@ -35,7 +35,7 @@
         <div class="text-sm mb-8">
           <PortableText v-if="aboutUsData" :value="aboutUsData.aboutUsContent[0]" />
         </div>
-        <NuxtLink to="/Donate" class="bg-dark-brown text-white p-3 text-sm rounded-lg">Donate Now!</NuxtLink>
+        <NuxtLink to="/Donate" class="bg-dark-brown text-white p-3 text-sm rounded-lg">{{ donateItemButtonText || 'Donate Now!' }}</NuxtLink>
       </div>
     </div>
   </footer>
@@ -48,6 +48,7 @@ const { data: aboutUsData } = await useAsyncData('footerAboutUs', async () => {
   const { aboutUsContent } = await fetchTextData();
   return { aboutUsContent };
 });
+const { donateItemButtonText } = await fetchTextData();
 </script>
 
 <style scoped></style>

@@ -107,7 +107,8 @@ export async function useWebsiteData() {
       title,
       description,
       "imageUrl": image.asset->url,
-      link
+      link,
+      footerDonateButtonText
     }`;
     try {
       const { data, error } = await useSanityQuery<WebsiteInformation[]>(query);
