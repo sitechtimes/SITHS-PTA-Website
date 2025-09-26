@@ -6,9 +6,9 @@
         <h2 class="text-2xl font-bold mb-8 text-[#4b3a23] tracking-wide">UPCOMING EVENTS</h2>
         <ul v-if="events.length">
           <li
-            v-for="event in events.slice(0,5)"
+            v-for="event in events.slice(0,6)"
             :key="event.id"
-            class="bg-white rounded-xl mb-6 px-8 py-6 flex items-center justify-between shadow transition hover:shadow-lg text-lg cursor-pointer"
+            class="bg-white rounded-xl mb-6 px-8 py-5 flex items-center justify-between shadow transition hover:shadow-lg text-lg cursor-pointer"
             @click="openPopup(event)"
           >
             <div class="font-semibold md:text-lg text-base">{{ event.summary }}</div>
@@ -88,7 +88,11 @@ onMounted(async () => {
   try {
     const res = await fetch(url);
     const data = await res.json();
-    events.value = data.items || [];
+    events.value = (data.items || []).sort((a, b) => {
+      const aDate = new Date(a.start?.dateTime || a.start?.date || 0);
+      const bDate = new Date(b.start?.dateTime || b.start?.date || 0);
+      return aDate - bDate;
+    });
   } catch (e) {
     events.value = [];
   }
