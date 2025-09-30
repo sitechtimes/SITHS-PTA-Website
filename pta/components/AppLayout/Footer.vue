@@ -33,9 +33,24 @@
       <div id="thirdSection" class="flex-1 w-full lg:w-auto mx-4">
         <h2 class="font-bold">About Us</h2>
         <div class="text-sm mb-8">
-          <PortableText v-if="aboutUsData" :value="aboutUsData.aboutUsContent[0]" />
+          <PortableText v-if="footerAboutUsText && footerAboutUsText.length" :value="footerAboutUsText" />
         </div>
-        <NuxtLink to="/Donate" class="bg-dark-brown text-white p-3 text-sm rounded-lg">{{ donateItemButtonText || 'Donate Now!' }}</NuxtLink>
+        <NuxtLink
+          v-if="footerAboutUsButtonText && footerAboutUsButtonLink"
+          :to="footerAboutUsButtonLink"
+          class="bg-dark-brown text-white p-3 text-sm rounded-lg mr-2"
+        >
+          {{ footerAboutUsButtonText }}
+        <a
+          v-if="footerContentData?.footerDonateButtonText && footerContentData?.footerDonateButtonLink"
+          :href="footerContentData.footerDonateButtonLink"
+          class="bg-dark-brown text-white p-3 text-sm rounded-lg"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ footerContentData.footerDonateButtonText }}
+        </a>
+        </NuxtLink>
       </div>
     </div>
   </footer>
@@ -44,11 +59,13 @@
 <script setup type="ts">
 import { PortableText } from '@portabletext/vue'
 const { websiteInformation } = await useWebsiteData()
-const { data: aboutUsData } = await useAsyncData('footerAboutUs', async () => {
-  const { aboutUsContent } = await fetchTextData();
-  return { aboutUsContent };
-});
-const { donateItemButtonText } = await fetchTextData();
+const {
+  footerAboutUsText,
+  footerAboutUsButtonText,
+  footerAboutUsButtonLink,
+  footerDonateButtonText,
+  footerDonateButtonLink
+} = await fetchTextData();
 </script>
 
 <style scoped></style>

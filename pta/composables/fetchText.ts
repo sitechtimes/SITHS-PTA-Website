@@ -1,3 +1,10 @@
+type FooterContentData = {
+    aboutUsText?: any[];
+    aboutUsButtonText?: string;
+    aboutUsButtonLink?: string;
+    donateButtonText?: string;
+    donateButtonLink?: string;
+};
 import type { BlockContent } from '@/utils/types';
 
 export async function fetchTextData() {
@@ -9,6 +16,45 @@ export async function fetchTextData() {
     const joinUsContent = ref<BlockContent[]>([]);
     const donationLink = ref("");
     const donateItemButtonText = ref("");
+    const footerAboutUsButtonText = ref("");
+    const footerAboutUsButtonLink = ref("");
+    const footerAboutUsText = ref<any[]>([]);
+    const footerDonateButtonText = ref("");
+    const footerDonateButtonLink = ref("");
+    async function fetchFooterContent() {
+        const query = `*[_type == \"footerContent\"][0]{
+            aboutUsText,
+            aboutUsButtonText,
+            aboutUsButtonLink,
+            donateButtonText,
+            donateButtonLink
+        }`;
+        try {
+            const { data, error } = await useSanityQuery<FooterContentData>(query);
+            if (error.value) {
+                console.error("Error fetching Footer Content:", error.value);
+                footerAboutUsText.value = [];
+                footerAboutUsButtonText.value = "";
+                footerAboutUsButtonLink.value = "";
+                footerDonateButtonText.value = "";
+                footerDonateButtonLink.value = "";
+            } else if (data.value) {
+                const footerData = data.value as FooterContentData;
+                footerAboutUsText.value = footerData.aboutUsText || [];
+                footerAboutUsButtonText.value = footerData.aboutUsButtonText || "";
+                footerAboutUsButtonLink.value = footerData.aboutUsButtonLink || "";
+                footerDonateButtonText.value = footerData.donateButtonText || "";
+                footerDonateButtonLink.value = footerData.donateButtonLink || "";
+            }
+        } catch (error) {
+            console.log(error);
+            footerAboutUsText.value = [];
+            footerAboutUsButtonText.value = "";
+            footerAboutUsButtonLink.value = "";
+            footerDonateButtonText.value = "";
+            footerDonateButtonLink.value = "";
+        }
+    }
 
     async function fetchHomePageContent() {
         const query = `*[_type == "homePageContent"][0]{
@@ -83,7 +129,8 @@ export async function fetchTextData() {
     fetchJoinUsContent();
     fetchHomePageContent();
     fetchDonationPageContent();
-        
+    fetchFooterContent();
+    
     return {
         fetchLoading,
         aboutUsContent,
@@ -95,6 +142,11 @@ export async function fetchTextData() {
         fetchDonationPageContent,
         fetchJoinUsContent,
         donationLink,
-        donateItemButtonText
+        donateItemButtonText,
+        footerAboutUsText,
+        footerAboutUsButtonText,
+        footerAboutUsButtonLink,
+        footerDonateButtonText,
+        footerDonateButtonLink
     };
 }
