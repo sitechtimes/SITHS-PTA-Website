@@ -88,11 +88,17 @@ onMounted(async () => {
   try {
     const res = await fetch(url);
     const data = await res.json();
-    events.value = (data.items || []).sort((a, b) => {
-      const aDate = new Date(a.start?.dateTime || a.start?.date || 0);
-      const bDate = new Date(b.start?.dateTime || b.start?.date || 0);
-      return aDate - bDate;
-    });
+    const now = new Date();
+    events.value = (data.items || [])
+      .filter(event => {
+        const end = event.end?.dateTime || event.end?.date || event.start?.dateTime || event.start?.date;
+        return end && new Date(end) >= now;
+      })
+      .sort((a, b) => {
+        const aDate = new Date(a.start?.dateTime || a.start?.date || 0);
+        const bDate = new Date(b.start?.dateTime || b.start?.date || 0);
+        return aDate - bDate;
+      });
   } catch (e) {
     events.value = [];
   }
