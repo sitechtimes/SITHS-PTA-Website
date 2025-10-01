@@ -63,8 +63,6 @@ const {
   footerAboutUsText,
   footerAboutUsButtonText,
   footerAboutUsButtonLink,
-  footerDonateButtonText,
-  footerDonateButtonLink
 } = await fetchTextData();
 </script>
 
