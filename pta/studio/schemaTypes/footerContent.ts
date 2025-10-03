@@ -24,17 +24,5 @@ export default defineType({
       type: 'string',
       description: 'Link for the About Us button in the footer.'
     }),
-    defineField({
-      name: 'donateButtonText',
-      title: 'Donate Button Text',
-      type: 'string',
-      description: 'Text for the Donate button in the footer.'
-    }),
-    defineField({
-      name: 'donateButtonLink',
-      title: 'Donate Button Link',
-      type: 'string',
-      description: 'Link for the Donate button in the footer.'
-    })
   ]
 })
