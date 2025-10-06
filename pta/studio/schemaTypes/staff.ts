@@ -20,7 +20,6 @@ export default defineType({
       name: 'email',
       title: 'Email',
       type: 'string',
-      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'phone',
