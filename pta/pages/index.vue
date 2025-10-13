@@ -11,5 +11,8 @@
 
 <script setup>
 const { aboutUsContent, activitiesContent } = await fetchTextData();
+
+
+
 </script>
 <style scoped></style>
