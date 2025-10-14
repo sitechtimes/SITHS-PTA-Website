@@ -6,9 +6,8 @@ export default defineNuxtConfig({
   sanity: {
     projectId: "o006ti7s",
     dataset: "pta",
-    useCdn: true,
-// @ts-expect-error: disable visual editing (not yet typed for boolean)
-    visualEditing: false  },
+    useCdn: true 
+  },
 
   css: ["~/assets/css/main.css"],
 
