@@ -18,7 +18,6 @@
     "better-sqlite3": "^12.4.1",
     "googleapis": "^150.0.1",
     "gsap": "^3.12.5",
-    "nuxt": "^3.13.0",
     "prettier": "^3.5.3",
     "vue": "latest",
     "vue-router": "latest"
