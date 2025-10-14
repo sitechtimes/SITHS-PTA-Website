@@ -16,7 +16,6 @@
         class="mx-1 hover:opacity-70 duration-500 text-lg md:text-2xl xl:text-3xl w-1/4 md:w-1/6 xl:w-1/6 py-2 rounded-xl xl:mx-6">
         Staff
       </button>
-      <input type="checkbox" v-model="showSLT">Show SLT</input>
       <button
         id="slt"
         @click="buttonClick($event)"
@@ -32,7 +31,7 @@
       <div v-if="buttonType === 'staff'" class="bg-white rounded-3xl w-11/12 md:w-3/4 xl:w-7/12 pt-4 md:p-12">
         <Staff :pta-members="staffMembers.sort((a, b) => a.order - b.order)" />
       </div>
-      <div v-if="buttonType === 'slt'" class="slt-switch bg-white rounded-3xl w-11/12 md:w-3/4 xl:w-7/12 pt-4 md:p-12">
+      <div v-if="buttonType === 'slt' && showSLT == true" class=" bg-white rounded-3xl w-11/12 md:w-3/4 xl:w-7/12 pt-4 md:p-12">
         <Staff :pta-members="sltMembers.sort((a, b) => a.order - b.order)" />
       </div>
     </div>
