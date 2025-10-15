@@ -24,17 +24,11 @@ export default defineType({
       type: 'string',
       description: 'Link for the About Us button in the footer.'
     }),
-    defineField({
-      name: 'donateButtonText',
-      title: 'Donate Button Text',
+     defineField({
+      name: 'studentcredit',
+      title: 'Student Credit',
       type: 'string',
-      description: 'Text for the Donate button in the footer.'
+      description: 'Short note giving credit to whalen and students.'
     }),
-    defineField({
-      name: 'donateButtonLink',
-      title: 'Donate Button Link',
-      type: 'string',
-      description: 'Link for the Donate button in the footer.'
-    })
   ]
 })

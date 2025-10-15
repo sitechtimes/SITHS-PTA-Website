@@ -20,9 +20,9 @@ body {
   background: linear-gradient(
       180deg,
       #ffb393 0%,
-      #ffdcbc 20%,
-      #fff1d7 40%,
-      #ffeddc 80%,
+      #ffdcbc 30%,
+      #fff1d7 50%,
+      #ffeddc 70%,
       #fff 100%
     ) no-repeat;
   background-size: cover;

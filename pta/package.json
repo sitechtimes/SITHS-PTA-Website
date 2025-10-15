@@ -12,13 +12,13 @@
   },
   "dependencies": {
     "@nuxt/content": "^3.0.0",
-    "@nuxtjs/sanity": "^1.13.3",
+    "@nuxtjs/sanity": "^2.0.0",
     "@portabletext/vue": "^1.0.12",
     "@sanity/client": "^7.2.1",
-    "@sanity/visual-editing": "^2.13.21",
+    "better-sqlite3": "^12.4.1",
     "googleapis": "^150.0.1",
     "gsap": "^3.12.5",
-    "nuxt": "^3.13.0",
+    "nuxt": "3.19",
     "prettier": "^3.5.3",
     "vue": "latest",
     "vue-router": "latest"

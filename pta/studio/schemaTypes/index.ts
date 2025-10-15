@@ -1,3 +1,4 @@
+import contactPageContent from './contactPageContent';
 import staff from './staff';
 import slt from './slt';
 import homePageContent from './homePageContent';
@@ -18,5 +19,6 @@ export const schemaTypes = [
     calendarEvent,
     joinUsPageContent,
     websiteInformation,
+    contactPageContent,
     footerContent
 ];

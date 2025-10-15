@@ -4,6 +4,7 @@ type FooterContentData = {
     aboutUsButtonLink?: string;
     donateButtonText?: string;
     donateButtonLink?: string;
+    studentcredit?: string;    
 };
 import type { BlockContent } from '@/utils/types';
 
@@ -21,13 +22,15 @@ export async function fetchTextData() {
     const footerAboutUsText = ref<any[]>([]);
     const footerDonateButtonText = ref("");
     const footerDonateButtonLink = ref("");
+    const footerStudentCredit = ref("");
     async function fetchFooterContent() {
         const query = `*[_type == \"footerContent\"][0]{
             aboutUsText,
             aboutUsButtonText,
             aboutUsButtonLink,
             donateButtonText,
-            donateButtonLink
+            donateButtonLink,
+            studentcredit,
         }`;
         try {
             const { data, error } = await useSanityQuery<FooterContentData>(query);
@@ -38,6 +41,8 @@ export async function fetchTextData() {
                 footerAboutUsButtonLink.value = "";
                 footerDonateButtonText.value = "";
                 footerDonateButtonLink.value = "";
+                footerStudentCredit.value = "";
+
             } else if (data.value) {
                 const footerData = data.value as FooterContentData;
                 footerAboutUsText.value = footerData.aboutUsText || [];
@@ -45,6 +50,7 @@ export async function fetchTextData() {
                 footerAboutUsButtonLink.value = footerData.aboutUsButtonLink || "";
                 footerDonateButtonText.value = footerData.donateButtonText || "";
                 footerDonateButtonLink.value = footerData.donateButtonLink || "";
+                footerStudentCredit.value = footerData.studentcredit || "";
             }
         } catch (error) {
             console.log(error);
@@ -53,6 +59,7 @@ export async function fetchTextData() {
             footerAboutUsButtonLink.value = "";
             footerDonateButtonText.value = "";
             footerDonateButtonLink.value = "";
+            footerStudentCredit.value = "";
         }
     }
 
@@ -147,6 +154,7 @@ export async function fetchTextData() {
         footerAboutUsButtonText,
         footerAboutUsButtonLink,
         footerDonateButtonText,
-        footerDonateButtonLink
+        footerDonateButtonLink,
+        footerStudentCredit
     };
 }
