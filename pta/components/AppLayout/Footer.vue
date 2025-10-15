@@ -54,7 +54,7 @@
       </div>
     </div>
     <div id="footer-bottom" class="w-full text-sm py-2 px-6 text-left">
-  <p>{{ footerContent.studentcredit }}</p>
+  <p>{{ footerStudentCredit }}</p>
 </div>
   </footer>
 </template>
@@ -66,6 +66,7 @@ const {
   footerAboutUsText,
   footerAboutUsButtonText,
   footerAboutUsButtonLink,
+  footerStudentCredit,
 } = await fetchTextData();
 </script>
 

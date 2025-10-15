@@ -14,7 +14,8 @@ export async function useWebsiteData() {
       email,
       phone,
       "profilePhotoUrl": profilePhoto.asset->url,
-      order
+      order,
+      textfield,
     }`;
 
     try {

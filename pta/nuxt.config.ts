@@ -2,6 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/content", "@nuxtjs/sanity"],
+  vite: {
+    optimizeDeps: {
+      include: ['react', 'react-dom', 'react-compiler-runtime']
+    }
+  },
 
   sanity: {
     projectId: "o006ti7s",

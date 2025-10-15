@@ -41,7 +41,7 @@
 <script setup>
 import gsap from "gsap";
 
-const showSLT = ref(true)
+const showSLT = ref(false)
 
 const buttonType = ref("join");
 function buttonClick(event) {

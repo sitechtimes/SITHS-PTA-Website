@@ -40,7 +40,7 @@ export default defineType({
       type: 'number',
     }),
     defineField({
-    name: 'textField',
+    name: 'textfield',
     title: 'Text Field',
     type: 'string',
     description: 'optional note',
