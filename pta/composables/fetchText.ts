@@ -4,7 +4,7 @@ type FooterContentData = {
     aboutUsButtonLink?: string;
     donateButtonText?: string;
     donateButtonLink?: string;
-    studentcredit?: string;    
+    studentCredit?: string;    
 };
 import type { BlockContent } from '@/utils/types';
 
@@ -30,7 +30,7 @@ export async function fetchTextData() {
             aboutUsButtonLink,
             donateButtonText,
             donateButtonLink,
-            studentcredit,
+            studentCredit,
         }`;
         try {
             const { data, error } = await useSanityQuery<FooterContentData>(query);
@@ -50,7 +50,7 @@ export async function fetchTextData() {
                 footerAboutUsButtonLink.value = footerData.aboutUsButtonLink || "";
                 footerDonateButtonText.value = footerData.donateButtonText || "";
                 footerDonateButtonLink.value = footerData.donateButtonLink || "";
-                footerStudentCredit.value = footerData.studentcredit || "";
+                footerStudentCredit.value = footerData.studentCredit || "";
             }
         } catch (error) {
             console.log(error);

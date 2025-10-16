@@ -85,3 +85,9 @@ export interface WebsiteInformation extends SanityDocument {
   };
   footerDonateButtonText?: string;
 }
+export interface ContactPageContent {
+  _id?: string
+  _type?: 'contactPageContent'
+  title?: string
+  intro?: any[]
+}

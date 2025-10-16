@@ -17,6 +17,18 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'memberType',
+      title: 'Member Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Staff', value: 'staff' },
+          { title: 'SLT', value: 'slt' },
+        ],
+      },
+      initialValue: 'staff',
+    }),
+    defineField({
       name: 'email',
       title: 'Email',
       type: 'string',
