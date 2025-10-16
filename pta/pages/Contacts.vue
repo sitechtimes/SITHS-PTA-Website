@@ -49,19 +49,7 @@ function buttonClick(event) {
 }
 const { staffMembers, sltMembers } = await useWebsiteData();
 
-const showSLT = computed(() => {
-  try {
-    const hasExplicit = Array.isArray(sltMembers?.value) && sltMembers.value.length > 0;
-    const hasInStaff = Array.isArray(staffMembers?.value) && staffMembers.value.some(m => {
-      const mt = (m && (m.memberType || m._type || m.type) || '').toString().toLowerCase();
-      const role = (m && m.role || '').toString().toLowerCase();
-      return mt === 'slt' || mt === 'sltmember' || role.includes('slt');
-    });
-    return hasExplicit || hasInStaff;
-  } catch (e) {
-    return false;
-  }
-});
+const showSLT = computed(() => Array.isArray(sltMembers?.value) && sltMembers.value.length > 0);
 
 watch(showSLT, (val) => {
   if (!val && buttonType.value === 'slt') buttonType.value = 'staff';
