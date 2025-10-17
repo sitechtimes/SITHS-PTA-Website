@@ -53,7 +53,7 @@
         </NuxtLink>
       </div>
     </div>
-    <div id="footer-bottom" class="w-full text-sm px-6 text-left">
+    <div id="footer-bottom" class="w-full text-sm py-2 px-6 text-left">
   <p>{{ footerStudentCredit }}</p>
 </div>
   </footer>
