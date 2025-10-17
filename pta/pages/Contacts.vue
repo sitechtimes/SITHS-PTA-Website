@@ -48,8 +48,8 @@ function buttonClick(event) {
   buttonType.value = event.target.id;
 }
 const { staffMembers, sltMembers } = await useWebsiteData();
-
-const showSLT = computed(() => Array.isArray(sltMembers?.value) && sltMembers.value.length > 0);
+const showSLT = ref(false)
+//const showSLT = computed(() => Array.isArray(sltMembers?.value) && sltMembers.value.length > 0);
 
 watch(showSLT, (val) => {
   if (!val && buttonType.value === 'slt') buttonType.value = 'staff';

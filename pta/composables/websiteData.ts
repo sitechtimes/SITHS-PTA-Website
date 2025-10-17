@@ -20,16 +20,8 @@ export async function useWebsiteData() {
     }`;
 
     try {
-      const { data: staffRes, error: staffErr } = await useSanityQuery<PtaMember[]>(staffQuery);
-      if (staffErr?.value) {
-        console.error('Error fetching staffMember docs:', staffErr.value);
-        staffMembers.value = [];
-        sltMembers.value = [];
-        return;
-      }
-
-      const staffData = staffRes?.value ?? [];
-      const [sltList, nonSlt] = (Array.isArray(staffData) ? staffData : []).reduce<[PtaMember[], PtaMember[]]>(
+      const { data } = await useSanityQuery<PtaMember[]>(staffQuery);
+      const [sltList, nonSlt] = (Array.isArray(data.value) ? data.value : []).reduce<[PtaMember[], PtaMember[]]>(
         (acc, m) => {
           const mt = String(m?.memberType ?? m?._type ?? m?.type ?? '').toLowerCase();
           const role = String(m?.role ?? '').toLowerCase();
