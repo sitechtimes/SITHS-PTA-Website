@@ -56,7 +56,7 @@ export default defineType({
     defineField({
       name: 'optionalText',
       title: 'Optional Text',
-      type: 'string',
+      type: 'text',
     })
   ],
 })

@@ -18,7 +18,7 @@
     <p v-if="member.phone" class="text-xs sm:text-lg mt-2 mb-4">
       {{ member.phone }}
     </p>
-    <p v-if="member.optionalText" class="text-xs sm:text-lg mt-2 mb-4">
+    <p v-if="member.optionalText" class="text-xs sm:text-lg mb-4">
       {{ member.optionalText }}
     </p>
   </div>
