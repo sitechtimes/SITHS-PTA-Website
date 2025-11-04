@@ -6,21 +6,8 @@ export async function useWebsiteData() {
   const resources = ref<Resource[]>([]);
   const websiteInformation = ref<WebsiteInformation[]>([]);
 
-  // Fetch both staffMember and sltMember documents in one function and populate both refs.
-  async function fetchAllMembers() {
-    const staffQuery = `*[_type == "staffMember"]{
-      _id,
-      name,
-      role,
-      email,
-      phone,
-      "profilePhotoUrl": profilePhoto.asset->url,
-      memberType,
-      order,
-      textfield
-    }`;
-
-    const sltQuery = `*[_type == "sltMember"]{
+  async function fetchStaffMembers() {
+    const query = `*[_type == "staffMember"]{
       _id,
       name,
       role,
@@ -33,52 +20,17 @@ export async function useWebsiteData() {
     }`;
 
     try {
-      const [{ data: staffData, error: staffError }, { data: sltData, error: sltError }] = await Promise.all([
-        useSanityQuery<PtaMember[]>(staffQuery),
-        useSanityQuery<PtaMember[]>(sltQuery),
-      ]);
-
-      if (staffError?.value) {
-        console.error('Error fetching staffMember docs:', staffError.value);
-        staffMembers.value = [];
-      } else if (staffData?.value) {
-        staffMembers.value = staffData.value;
-      } else {
+      const { data, error } = await useSanityQuery<PtaMember[]>(query);
+      if (error.value) {
+        console.error("Error fetching staff members:", error.value);
         staffMembers.value = [];
         sltMembers.value = [];
       } else if (data.value) {
         staffMembers.value = data.value;
         sltMembers.value = data.value.filter(member => member.memberType === 'slt');
       }
-
-      // Build sltMembers from two sources: those embedded in staffMember (memberType) and standalone sltMember docs
-      const results: PtaMember[] = [];
-
-      if (Array.isArray(staffMembers.value) && staffMembers.value.length) {
-        results.push(...staffMembers.value.filter((m) => {
-          const mt = (m && (m.memberType || m._type || m.type) || '').toString().toLowerCase();
-          const role = (m && m.role || '').toString().toLowerCase();
-          return mt === 'slt' || mt === 'sltmember' || role.includes('slt');
-        }));
-      }
-
-      if (sltError?.value) {
-        console.error('Error fetching sltMember docs:', sltError.value);
-      } else if (sltData?.value) {
-        results.push(...sltData.value);
-      }
-
-      // Dedupe by _id and sort
-      const seen = new Set<string>();
-      sltMembers.value = results.filter((r) => {
-        if (!r || !r._id) return false;
-        if (seen.has(r._id)) return false;
-        seen.add(r._id);
-        return true;
-      }).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-
     } catch (error) {
-      console.error('Error during members fetch:', error);
+      console.error("Error during staff members fetch:", error);
       staffMembers.value = [];
       sltMembers.value = [];
     }
@@ -163,6 +115,5 @@ export async function useWebsiteData() {
     fetchLoading,
     resources,
     websiteInformation,
-    fetchAllMembers,
   };
 }
