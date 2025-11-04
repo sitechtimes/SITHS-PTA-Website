@@ -14,6 +14,7 @@ export async function useWebsiteData() {
       email,
       phone,
       "profilePhotoUrl": profilePhoto.asset->url,
+      memberType,
       order
     }`;
 
@@ -22,36 +23,14 @@ export async function useWebsiteData() {
       if (error.value) {
         console.error("Error fetching staff members:", error.value);
         staffMembers.value = [];
+        sltMembers.value = [];
       } else if (data.value) {
         staffMembers.value = data.value;
+        sltMembers.value = data.value.filter(member => member.memberType === 'slt');
       }
     } catch (error) {
       console.error("Error during staff members fetch:", error);
       staffMembers.value = [];
-    }
-  }
-
-  async function fetchSLTMembers() {
-    const query = `*[_type == "sltMember"]{
-      _id,
-      name,
-      role,
-      email,
-      phone,
-      "profilePhotoUrl": profilePhoto.asset->url,
-      order
-    }`;
-
-    try {
-      const { data, error } = await useSanityQuery<PtaMember[]>(query);
-      if (error.value) {
-        console.error("Error fetching staff members:", error.value);
-        sltMembers.value = [];
-      } else if (data.value) {
-        sltMembers.value = data.value;
-      }
-    } catch (error) {
-      console.error("Error during staff members fetch:", error);
       sltMembers.value = [];
     }
   }
@@ -125,7 +104,6 @@ export async function useWebsiteData() {
   }
 
   fetchStaffMembers();
-  fetchSLTMembers();
   fetchGalleryImages();
   fetchResources();
   fetchWebsiteInformation();

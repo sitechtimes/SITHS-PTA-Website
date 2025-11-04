@@ -1,6 +1,5 @@
 import contactPageContent from './contactPageContent';
 import staff from './staff';
-import slt from './slt';
 import homePageContent from './homePageContent';
 import donationPageContent from './donationPageContent';
 import gallery from './gallery';
@@ -11,7 +10,6 @@ import websiteInformation from './websiteInformation';
 import footerContent from './footerContent';
 export const schemaTypes = [
     staff,
-    slt,
     homePageContent,
     donationPageContent,
     gallery,
