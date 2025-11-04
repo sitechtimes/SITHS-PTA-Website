@@ -15,7 +15,8 @@ export async function useWebsiteData() {
       phone,
       "profilePhotoUrl": profilePhoto.asset->url,
       memberType,
-      order
+      order,
+      optionalText
     }`;
 
     try {
@@ -91,7 +92,6 @@ export async function useWebsiteData() {
     }`;
     try {
       const { data, error } = await useSanityQuery<WebsiteInformation[]>(query);
-      console.log(data);
       if (error?.value) {
         throw new Error(String(error.value));
       } else if (data?.value) {

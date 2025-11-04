@@ -53,5 +53,10 @@ export default defineType({
       title: 'Order',
       type: 'number',
     }),
+    defineField({
+      name: 'optionalText',
+      title: 'Optional Text',
+      type: 'string',
+    })
   ],
 })
