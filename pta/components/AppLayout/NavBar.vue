@@ -1,8 +1,8 @@
 <template>
 <header
   :class="[
-    'grid grid-cols-5 z-100 w-full justify-end h-fit pb-5 fixed top-0 transition-colors duration-500',
-    'bg-gradient-to-b from-[#ffb393] to-screen' , 'bg-transparent'
+    'grid grid-cols-5 z-100 w-full justify-end h-fit pb-5 fixed top-0 transition-colors duration-500 ',
+    'bg-gradient-to-b from-[#ffb393] via-[#ffb393] to-[#ffb393]/5', 'bg-transparent'
   ]"
   id="navbar"
 >

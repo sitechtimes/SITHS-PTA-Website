@@ -70,7 +70,6 @@ const {
   footerDonateButtonLink,
   studentCredit
 } = await fetchTextData();
-console.log(studentCredit);
 </script>
 
 <style scoped></style>
