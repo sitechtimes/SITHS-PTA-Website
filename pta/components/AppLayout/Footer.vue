@@ -9,6 +9,9 @@
         </div>
         <p class="text-md mt-2">SITHS PTA @{{ new Date().getFullYear() }}</p>
         <a href="mailto: sitechpta@gmail.com" target="_blank" rel="noopener noreferrer"> sitechpta@gmail.com</a>
+              <p>
+          {{ studentCredit }}
+        </p>
       </div>
       <div class="flex-1 lg:w-auto mb-8 flex flex-col justify-center">
         <div class="flex flex-col flex-wrap content-start justify-start max-h-50">
@@ -41,16 +44,16 @@
           class="bg-dark-brown text-white p-3 text-sm rounded-lg mr-2"
         >
           {{ footerAboutUsButtonText }}
+        </NuxtLink>
         <a
-          v-if="footerContentData?.footerDonateButtonText && footerContentData?.footerDonateButtonLink"
-          :href="footerContentData.footerDonateButtonLink"
+          v-if="footerDonateButtonText && footerDonateButtonLink"
+          :href="footerDonateButtonLink"
           class="bg-dark-brown text-white p-3 text-sm rounded-lg"
           target="_blank"
           rel="noopener noreferrer"
         >
-          {{ footerContentData.footerDonateButtonText }}
+          {{ footerDonateButtonText }}
         </a>
-        </NuxtLink>
       </div>
     </div>
   </footer>
@@ -63,7 +66,11 @@ const {
   footerAboutUsText,
   footerAboutUsButtonText,
   footerAboutUsButtonLink,
+  footerDonateButtonText,
+  footerDonateButtonLink,
+  studentCredit
 } = await fetchTextData();
+console.log(studentCredit);
 </script>
 
 <style scoped></style>
