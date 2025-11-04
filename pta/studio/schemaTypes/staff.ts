@@ -23,10 +23,12 @@ export default defineType({
       options: {
         list: [
           { title: 'Staff', value: 'staff' },
-          { title: 'SLT', value: 'slt' },
+          { title: 'SLT', value: 'slt' }
         ],
+        layout: 'dropdown'
       },
       initialValue: 'staff',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'email',
@@ -45,20 +47,6 @@ export default defineType({
       options: {
         hotspot: true,
       },
-    }),
-    defineField({
-      name: 'memberType',
-      title: 'Member Type',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Staff', value: 'staff' },
-          { title: 'SLT', value: 'slt' }
-        ],
-        layout: 'dropdown'
-      },
-      initialValue: 'staff',
-      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'order',
