@@ -17,7 +17,6 @@
         Staff
       </button>
       <button
-        v-if="showSLT"
         id="slt"
         @click="buttonClick($event)"
         :class="{ 'bg-white': buttonType === 'slt' }"
@@ -30,9 +29,9 @@
         <JoinUs />
       </div>
       <div v-if="buttonType === 'staff'" class="bg-white rounded-3xl w-11/12 md:w-3/4 xl:w-7/12 pt-4 md:p-12">
-        <Staff :pta-members="staffMembers.filter(m => m.memberType === 'staff').sort((a, b) => a.order - b.order)" />
+        <Staff :pta-members="staffMembers.sort((a, b) => a.order - b.order)" />
       </div>
-      <div v-if="buttonType === 'slt' && showSLT" class="bg-white rounded-3xl w-11/12 md:w-3/4 xl:w-7/12 pt-4 md:p-12">
+      <div v-if="buttonType === 'slt'" class="bg-white rounded-3xl w-11/12 md:w-3/4 xl:w-7/12 pt-4 md:p-12">
         <Staff :pta-members="sltMembers.sort((a, b) => a.order - b.order)" />
       </div>
     </div>
@@ -47,7 +46,7 @@ function buttonClick(event) {
   buttonType.value = event.target.id;
 }
 const { staffMembers, sltMembers } = await useWebsiteData();
-const showSLT = computed(() => Array.isArray(sltMembers?.value) && sltMembers.value.length > 0);
+console.log(staffMembers, sltMembers);
 onMounted(() => {
   var tl = gsap.timeline();
   tl.from("#heading", { opacity: 0, y: 70, duration: 0.5 }).from("#buttons", { opacity: 0, y: 50, duration: 0.5 }).from("#description", { opacity: 0, y: 50, duration: 0.5 });
