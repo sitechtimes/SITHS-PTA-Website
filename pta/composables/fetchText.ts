@@ -4,7 +4,7 @@ type FooterContentData = {
     aboutUsButtonLink?: string;
     donateButtonText?: string;
     donateButtonLink?: string;
-    studentCredit?: string;    
+    studentCredit?: string;
 };
 import type { BlockContent } from '@/utils/types';
 
@@ -22,7 +22,7 @@ export async function fetchTextData() {
     const footerAboutUsText = ref<any[]>([]);
     const footerDonateButtonText = ref("");
     const footerDonateButtonLink = ref("");
-    const footerStudentCredit = ref("");
+    const studentCredit = ref("");
     async function fetchFooterContent() {
         const query = `*[_type == \"footerContent\"][0]{
             aboutUsText,
@@ -30,7 +30,7 @@ export async function fetchTextData() {
             aboutUsButtonLink,
             donateButtonText,
             donateButtonLink,
-            studentCredit,
+            studentCredit
         }`;
         try {
             const { data, error } = await useSanityQuery<FooterContentData>(query);
@@ -41,8 +41,7 @@ export async function fetchTextData() {
                 footerAboutUsButtonLink.value = "";
                 footerDonateButtonText.value = "";
                 footerDonateButtonLink.value = "";
-                footerStudentCredit.value = "";
-
+                studentCredit.value = "";
             } else if (data.value) {
                 const footerData = data.value as FooterContentData;
                 footerAboutUsText.value = footerData.aboutUsText || [];
@@ -50,7 +49,7 @@ export async function fetchTextData() {
                 footerAboutUsButtonLink.value = footerData.aboutUsButtonLink || "";
                 footerDonateButtonText.value = footerData.donateButtonText || "";
                 footerDonateButtonLink.value = footerData.donateButtonLink || "";
-                footerStudentCredit.value = footerData.studentCredit || "";
+                studentCredit.value = footerData.studentCredit || "";
             }
         } catch (error) {
             console.log(error);
@@ -59,7 +58,7 @@ export async function fetchTextData() {
             footerAboutUsButtonLink.value = "";
             footerDonateButtonText.value = "";
             footerDonateButtonLink.value = "";
-            footerStudentCredit.value = "";
+            studentCredit.value = "";
         }
     }
 
@@ -126,7 +125,6 @@ export async function fetchTextData() {
                 joinUsContent.value = []; 
             } else if (data.value) {
                 joinUsContent.value = data.value.joinUs || [];
-                console.log(joinUsContent)
             }
         } catch (error) {
             console.log(error);
@@ -155,6 +153,6 @@ export async function fetchTextData() {
         footerAboutUsButtonLink,
         footerDonateButtonText,
         footerDonateButtonLink,
-        footerStudentCredit
+        studentCredit
     };
 }

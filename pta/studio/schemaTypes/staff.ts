@@ -2,7 +2,7 @@ import {defineType, defineField} from 'sanity'
 
 export default defineType({
   name: 'staffMember',
-  title: 'Staff Member',
+  title: 'Staff & SLT Member',
   type: 'document',
   fields: [
     defineField({
@@ -47,15 +47,28 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'memberType',
+      title: 'Member Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Staff', value: 'staff' },
+          { title: 'SLT', value: 'slt' }
+        ],
+        layout: 'dropdown'
+      },
+      initialValue: 'staff',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'order',
       title: 'Order',
       type: 'number',
     }),
     defineField({
-    name: 'textfield',
-    title: 'Text Field',
-    type: 'string',
-    description: 'optional note',
-    }),
+      name: 'optionalText',
+      title: 'Optional Text',
+      type: 'text',
+    })
   ],
 })

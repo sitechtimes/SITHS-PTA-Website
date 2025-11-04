@@ -24,11 +24,11 @@ export default defineType({
       type: 'string',
       description: 'Link for the About Us button in the footer.'
     }),
-     defineField({
+    defineField({
       name: 'studentCredit',
       title: 'Student Credit',
       type: 'string',
-      description: 'Short note giving credit to whalen and students.'
+      description: 'Short note giving credit to Whalen and students.'
     }),
   ]
 })

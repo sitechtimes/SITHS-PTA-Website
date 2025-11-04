@@ -27,7 +27,9 @@ export async function useWebsiteData() {
       email,
       phone,
       "profilePhotoUrl": profilePhoto.asset->url,
-      order
+      memberType,
+      order,
+      optionalText
     }`;
 
     try {
@@ -43,6 +45,10 @@ export async function useWebsiteData() {
         staffMembers.value = staffData.value;
       } else {
         staffMembers.value = [];
+        sltMembers.value = [];
+      } else if (data.value) {
+        staffMembers.value = data.value;
+        sltMembers.value = data.value.filter(member => member.memberType === 'slt');
       }
 
       // Build sltMembers from two sources: those embedded in staffMember (memberType) and standalone sltMember docs
@@ -145,7 +151,7 @@ export async function useWebsiteData() {
     }
   }
 
-  fetchAllMembers();
+  fetchStaffMembers();
   fetchGalleryImages();
   fetchResources();
   fetchWebsiteInformation();
