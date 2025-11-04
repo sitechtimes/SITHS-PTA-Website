@@ -2,7 +2,7 @@ import {defineType, defineField} from 'sanity'
 
 export default defineType({
   name: 'staffMember',
-  title: 'Staff Member',
+  title: 'Staff & SLT Member',
   type: 'document',
   fields: [
     defineField({
@@ -20,7 +20,6 @@ export default defineType({
       name: 'email',
       title: 'Email',
       type: 'string',
-      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'phone',
@@ -34,6 +33,20 @@ export default defineType({
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: 'memberType',
+      title: 'Member Type',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Staff', value: 'staff' },
+          { title: 'SLT', value: 'slt' }
+        ],
+        layout: 'dropdown'
+      },
+      initialValue: 'staff',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'order',
