@@ -4,7 +4,7 @@ type FooterContentData = {
     aboutUsButtonLink?: string;
     donateButtonText?: string;
     donateButtonLink?: string;
-    studentCredit?: string;
+    studentCredit?: any[]; // portable text
 };
 import type { BlockContent } from '@/utils/types';
 
@@ -22,7 +22,7 @@ export async function fetchTextData() {
     const footerAboutUsText = ref<any[]>([]);
     const footerDonateButtonText = ref("");
     const footerDonateButtonLink = ref("");
-    const studentCredit = ref("");
+    const studentCredit = ref<any[]>([]);
     async function fetchFooterContent() {
         const query = `*[_type == \"footerContent\"][0]{
             aboutUsText,
@@ -41,7 +41,7 @@ export async function fetchTextData() {
                 footerAboutUsButtonLink.value = "";
                 footerDonateButtonText.value = "";
                 footerDonateButtonLink.value = "";
-                studentCredit.value = "";
+                studentCredit.value = [];
             } else if (data.value) {
                 const footerData = data.value as FooterContentData;
                 footerAboutUsText.value = footerData.aboutUsText || [];
@@ -49,7 +49,7 @@ export async function fetchTextData() {
                 footerAboutUsButtonLink.value = footerData.aboutUsButtonLink || "";
                 footerDonateButtonText.value = footerData.donateButtonText || "";
                 footerDonateButtonLink.value = footerData.donateButtonLink || "";
-                studentCredit.value = footerData.studentCredit || "";
+                studentCredit.value = footerData.studentCredit || [];
             }
         } catch (error) {
             console.log(error);
@@ -58,7 +58,7 @@ export async function fetchTextData() {
             footerAboutUsButtonLink.value = "";
             footerDonateButtonText.value = "";
             footerDonateButtonLink.value = "";
-            studentCredit.value = "";
+            studentCredit.value = [];
         }
     }
 

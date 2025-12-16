@@ -27,7 +27,8 @@ export default defineType({
     defineField({
       name: 'studentCredit',
       title: 'Student Credit',
-      type: 'string',
+      type: 'array',
+      of: [{ type: 'block' }],
       description: 'Short note giving credit to Whalen and students.'
     }),
   ]

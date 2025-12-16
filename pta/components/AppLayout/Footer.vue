@@ -9,9 +9,9 @@
         </div>
         <p class="text-md mt-2">SITHS PTA @{{ new Date().getFullYear() }}</p>
         <a href="mailto: sitechpta@gmail.com" target="_blank" rel="noopener noreferrer"> sitechpta@gmail.com</a>
-              <p>
-          {{ studentCredit }}
-        </p>
+        <div class="mt-4 text-md w-full">
+          <PortableText v-if="studentCredit && studentCredit.length" :value="studentCredit" />
+        </div>
       </div>
       <div class="flex-1 lg:w-auto mb-8 flex flex-col justify-center">
         <div class="flex flex-col flex-wrap content-start justify-start max-h-50">
@@ -56,9 +56,6 @@
         </a>
       </div>
     </div>
-    <div id="footer-bottom" class="w-full text-sm py-2 px-6 text-left">
-  <p>{{ footerStudentCredit }}</p>
-</div>
   </footer>
 </template>
 
